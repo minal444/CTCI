@@ -21,6 +21,6 @@ Stack Queue  :	3
 Tree		 :  4
 Recursion/DP :	3
 Moderate     :  5
-
+Sort and Seatch: 
 
 
