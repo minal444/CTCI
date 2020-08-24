@@ -17,6 +17,8 @@ namespace CTCI
         //3. Stack of Plates
 
         //4. Quequ with Stacks
+
+        //5 sort the stack
     }
 
     //2 Stack returns min element. Pop, push and min should be O(1)

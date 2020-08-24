@@ -28,6 +28,8 @@ namespace CTCI
 
             //18 Pattern Matching 
             bool isMatch = IsMatch( "aabab","catcatgocatgo");  //////////////To complex 
+
+            //26 calculator ---to Execute
         }
 
         //12

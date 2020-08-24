@@ -18,6 +18,10 @@ namespace CTCI
 
             //3 Delete Given Node
             //copy content from next node and set the pointer to next to next ///simple enough
+
+            //4 Partition
+
+            //6 Palindrom
         }
 
         public class Node
@@ -115,6 +119,57 @@ namespace CTCI
             return p2;
 
         }
+        /*
+         * create two new linkedlist and add node by comparing values to respective linked list 
+        */
+        public LinkedListNode<int> Partition(LinkedListNode<int> node, int x)
+        {
+            LinkedListNode<int> beforeStart = null;
+            LinkedListNode<int> beforeEnd = null;
+            LinkedListNode<int> afterStart = null;
+            LinkedListNode<int> afterEnd = null;
+            
+            while (node!=null)
+            {
+                LinkedListNode<int> next = node.Next;
+
+                if (node.Value < x)
+                {
+                    if(beforeStart == null)
+                    {
+                        beforeStart = node;
+                        beforeEnd = beforeStart;
+                    }
+                    else
+                    {
+                        beforeEnd.List.AddLast(node);
+                        beforeEnd = node;
+                    }
+                }
+                else
+                {
+                    if (afterStart == null)
+                    {
+                        afterStart = node;
+                        afterEnd = afterStart;
+                    }
+                    else
+                    {
+                        afterEnd.List.AddLast(node);
+                        afterEnd = node;
+                    }
+                }
+
+                node = next;
+            }
+
+            if (beforeStart == null)
+                return afterStart;
+
+            beforeEnd.List.AddLast(afterStart);
+            return beforeStart;
+        }
+
     }
 
 
