@@ -14,7 +14,7 @@ namespace CTCI
             //RemoveDuplicate();
 
             //2 Return Kth to Last
-           // KthtoLast();
+            // KthtoLast();
 
             //3 Delete Given Node
             //copy content from next node and set the pointer to next to next ///simple enough
@@ -22,6 +22,10 @@ namespace CTCI
             //4 Partition
 
             //6 Palindrom
+
+            LinkedList<int> l = new System.Collections.Generic.LinkedList<int>();
+            
+           
         }
 
         public class Node

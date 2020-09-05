@@ -32,6 +32,15 @@ namespace CTCI
 
             //5 Valid BST
             bool _isValidBST = IsValidBST(root);
+
+            //6 Sucessor -- TO Execute
+            TreeNode node = new TreeNode();
+            TreeNode n = Sucessor(node);
+
+            //7 Build Order -- TO Execute
+            //8 First Common Ancesstor-- TO Execute
+            //9 BST Sequence -- TO Execute
+
         }
         //2 Minimal Tree
         //Input [2,5,7,9,11,18,20,25,70]
@@ -47,6 +56,7 @@ namespace CTCI
         {
             public TreeNode left { get; set; }
             public TreeNode right { get; set; }
+            public TreeNode parent { get; set; }
             public int val { get; set; }
         }
         //Time: O(n)
@@ -161,6 +171,42 @@ namespace CTCI
             if (!IsValidBST(root.right)) return false;
 
             return true; 
+        }
+
+        /*
+         * If the tree has right subtree then return right most node
+         */
+        public TreeNode Sucessor(TreeNode node)
+        {
+            if (node == null) return null;
+            
+            if (node.right != null)
+            {
+                return   getLeftMost(node.right);
+            }
+            else
+            {
+                TreeNode n = node;
+                TreeNode p = node.parent;
+                while (p != null && p.left !=n)
+                {
+                    n = p;
+                    p = p.parent;
+                }
+                return p;
+            }
+        }
+
+        private TreeNode getLeftMost(TreeNode n)
+        {
+            if (n == null) return null;
+
+            while (n.left != null)
+            {
+                n = n.left;
+            }
+
+            return n;
         }
     }
 

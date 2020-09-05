@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace CTCI
@@ -33,6 +35,18 @@ namespace CTCI
             p = FindPath(arr);
 
             // 3 Magic Index //To Execute
+
+            //4 Power Set 
+            List<List<int>> allsubset = new List<List<int>>();
+            List<int> set = new List<int>();
+            set.Add(1);
+            set.Add(2);
+            set.Add(3);
+            allsubset = PowerSet(set,0);
+
+            //7 Permutation of unique string 
+            ArrayList a = new ArrayList();
+            a = Permutation("abc");
         }
 
         public int Fib(int i, string src)
@@ -101,6 +115,69 @@ namespace CTCI
             failedPath.Add(p);
             return false;
 
+        }
+
+        private List<List<int>> PowerSet(List<int> set, int index)
+        {
+            List<List<int>> allsubset;
+
+            if (set.Count == index)
+            {
+                allsubset = new List<List<int>>();
+                allsubset.Add(new List<int>());
+            }
+            else
+            {
+                allsubset = PowerSet(set, index + 1);
+                int item = set[index];
+                List<List<int>> moresubset = new List<List<int>>();
+                foreach (List<int> subset in allsubset)
+                {
+                    List<int> newSubset = new List<int>();
+                    newSubset.AddRange(subset);
+                    newSubset.Add(item);
+                    moresubset.Add(newSubset);
+                }
+                allsubset.AddRange(moresubset);
+            }
+
+            return allsubset;
+        }
+
+        private ArrayList Permutation(string str)
+        {
+            if (str == null) return null;
+
+            ArrayList permutations = new ArrayList();
+            if (str.Length ==0)
+            {
+                permutations.Add("");
+                return permutations;
+            }
+
+            char first = str[0];//get first character
+            string remainer = str.Substring(1); //remove first character
+            ArrayList words = Permutation(remainer);
+
+            foreach (string word in words)
+            {
+                for (int j=0; j<= word.Length; j++)
+                {
+                    string s = InsertAtChar(word, first, j);
+                    permutations.Add(s);
+                }
+
+            }
+
+            return permutations;
+
+        }
+
+        private string InsertAtChar(string word, char c, int index)
+        {
+            string start = word.Substring(0, index);
+            string end = word.Substring(index);
+            return start + c + end;
         }
     }
 

@@ -166,6 +166,22 @@ namespace CTCI
             }
             return count;
         }
+        /*
+         * input [2, -8, 3, -2, 4, -10]
+         * output 
+         * 
+         * maxsum : 5
+         * sum : 0
+         * 
+         * 
+         */
+        private int LargetSum(int[] arr)
+        {
+            int sum = 0;
+
+
+            return sum;
+        }
 
     }
 }

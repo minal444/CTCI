@@ -162,7 +162,7 @@ namespace CTCI
                     currentIndex--;
                 }
             }
-
+            
             //Console.WriteLine(result);
         }
 
