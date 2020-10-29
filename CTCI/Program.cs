@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CTCI.DesignPatterns.FactoryPattern;
+using CTCI.DesignPatterns.TemplatePattern;
+using System;
 
 namespace CTCI
 {
@@ -13,11 +15,19 @@ namespace CTCI
             //CTCITrees cTCITree = new CTCITrees();
             //cTCITree.AllTree();
 
-            CTCIRecursionDP R = new CTCIRecursionDP();
-            R.AllRecursionDP();
+            //CTCIRecursionDP R = new CTCIRecursionDP();
+            //R.AllRecursionDP();
 
             //CTCIModerate M = new CTCIModerate();
             //M.AllModerate();
+
+            //Design Patterns
+            //ClientFactory c = new ClientFactory();
+            //c.Calculate();
+
+            ClientTemplete c = new ClientTemplete();
+            c.Process();
+
         }
     }
 }
