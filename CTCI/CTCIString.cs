@@ -25,7 +25,10 @@ namespace CTCI
             //URLify(new string[] { "M", "r", " ", "J", "o", "h", "n", " ", "S", "m", "i", "t", "h", " ", " ", " ", " " }, 13);
 
             //4. Pelidromic Permutation 
-            bool b = IsPalindromePermutaion("Minal Patel");
+            //bool b = IsPalindromePermutaion("Minal Patel");
+
+            //Geeks for geeks
+
         }
         //1
         //Questions:

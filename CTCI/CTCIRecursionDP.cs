@@ -47,6 +47,20 @@ namespace CTCI
             //7 Permutation of unique string 
             ArrayList a = new ArrayList();
             a = Permutation("abc");
+
+            //GreeksforGeeks
+            //Generate the Possible binary string based on Pattern
+            //string str = "1??01";
+            string str = "1??0?101";
+            char[] strArr = str.ToCharArray();
+            GenerateBinaryString(strArr,0);
+
+
+            //C# program to count number of strings  
+            // of n characters with a,b, c and b =1 at most and c=2 atmost
+            int n = 3;
+            int cnt = CountofString(n,1,2);
+            Console.WriteLine(cnt);
         }
 
         public int Fib(int i, string src)
@@ -178,6 +192,66 @@ namespace CTCI
             string start = word.Substring(0, index);
             string end = word.Substring(index);
             return start + c + end;
+        }
+
+        private void GenerateBinaryString(char[] str, int idx)
+        {
+            if(str.Length ==idx)
+            {
+                Console.WriteLine(str);
+                return;
+            }
+
+            if(str[idx]=='?')
+            {
+                str[idx] = '0';
+                GenerateBinaryString(str, idx + 1);
+
+                str[idx] = '1';
+                GenerateBinaryString(str, idx + 1);
+
+                str[idx] = '?';
+            }
+            else
+            {
+                GenerateBinaryString(str, idx + 1);
+            }    
+
+        }
+
+        
+        private int CountofString(int n, int bCount,int cCount)
+        {
+            int[,,] dp = new int[n + 1, bCount+1, cCount + 1];
+
+            for (int i = 0; i < n + 1;i++)
+            {
+                for (int j=0; j<2; j++)
+                {
+                    for (int k=0; k<3; k++)
+                    {
+                        dp[i, j, k] = -1;
+                    }
+                }
+            }
+            return CountofStringUtil(dp,n,bCount ,cCount);
+        }
+
+        private int CountofStringUtil(int[,,]  dp, int n, int bCount, int cCount)
+        {
+           
+            if (bCount < 0 || cCount < 0) return 0;
+            if (n == 0) return 1;
+            if (bCount == 0 && cCount == 0) return 1;
+
+            if (dp[n, bCount, cCount] != -1)
+                return dp[n, bCount, cCount];
+
+            int res = CountofStringUtil(dp,n - 1,bCount,cCount);
+            res += CountofStringUtil(dp,n - 1, bCount-1, cCount);
+            res += CountofStringUtil(dp, n- 1, bCount, cCount-1);
+            dp[n, bCount, cCount] = res;
+            return res;
         }
     }
 
