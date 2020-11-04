@@ -5,6 +5,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
+using System.Threading;
 
 namespace CTCI
 {
@@ -13,8 +14,8 @@ namespace CTCI
         public void AllStrings()
         {
             //1 - Is Unique
-           // bool isStrUnique =  IsUnique("minal patel ");
-           // Console.WriteLine(isStrUnique);
+            // bool isStrUnique =  IsUnique("minal patel ");
+            // Console.WriteLine(isStrUnique);
             //Console.WriteLine(IsUniqueByBit("minal patel "));
 
             //2 IS Permutation
@@ -28,6 +29,32 @@ namespace CTCI
             //bool b = IsPalindromePermutaion("Minal Patel");
 
             //Geeks for geeks
+            List<string> dict = new List<string>();
+            /*dict.Add("ale");
+            dict.Add("apple");
+            dict.Add("monkey");
+            dict.Add("plea");
+            string str = "abpcplea";*/
+            //dict.Add("pintu");
+            //dict.Add("geeksfor");
+            //dict.Add("geeksgeeks");
+            //dict.Add("forgeek");
+            //string str = "geeksforgeeks";
+            //string strdic = LargestWord(dict, str );
+
+            //Find subarray with given sum
+            int[] arr = new int[] { 1, 4 };
+            int sum = 0;
+            SubArraySum(arr,sum);
+
+            //Codility exam
+            //int[] a = new int[] { 0,1,2,2,3,5};
+            //int[] b = new int[] { 500000, 500000,0,0,0,20000};
+            //int cnt = PossibleMultiplier(a,b);
+
+            //FB exam
+            //double degree = FindDegree(12, 0);
+
 
         }
         //1
@@ -206,6 +233,134 @@ namespace CTCI
                 }
             }
             return oddCounts <= 1;
+        }
+
+        //GeeksforGeeks
+        public string LargestWord(List<string> dict,string str)
+        {
+            string result = "";
+            int len = 0;
+            foreach(string word in dict)
+            {
+                if(IsMatch(word,str) && len < word.Length)
+                {
+                    result = word;
+                    len = word.Length;
+                }
+            }
+
+            return result;
+        }
+
+        public bool IsMatch(string word, string str)
+        {
+            //bool isMatch;
+            int strIdx = 0;
+            int n = word.Length;
+            string strNew = "";
+            for(int i=0; i <n; i ++)
+            {
+                while(strIdx < str.Length)
+                {
+                    if (str[strIdx] == word[i])
+                    {
+                        strNew += str[strIdx];
+                        strIdx++;
+                        break;
+                    }
+                    else
+                    {
+                        strIdx++;
+                    }
+                }
+            }
+
+            return strNew == word;
+            
+           
+        }
+
+        public int PossibleMultiplier(int[] a, int[] b)
+        {
+            int count = 0;
+            int n = a.Length;
+            double million = 1000000.0;
+            int billion = 1000000000;
+            if (n == 1)
+                return 0;
+
+            double[] c = new double[n];
+
+            for (int i =0; i < n; i++)
+            {
+                c[i] = a[i] + b[i] / million;
+            }
+
+            for (int p = 0; p<n-1; p++ )
+            {
+                for (int q = p+1; q< n; q++ )
+                {
+                    if(c[p] * c[q] >= c[p]+ c[q])
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            if (count > billion)
+                return billion;
+            else
+                return count;
+
+        }
+
+        public double FindDegree(int h, int m)
+        {
+            double degree;
+
+            int md = m * 6;
+            double hd = (h * 5 * 6) + (m * 0.5);
+            if (hd < m)
+                degree = md - hd;
+            else
+                degree = hd - md;
+
+            if (degree > 180)
+                degree = 360 - degree;
+                   
+            return degree;
+        }
+
+        private void SubArraySum(int[] arr, int sum)
+        {
+            int left = 0;
+            int right = 1;
+            int newsum = arr[left];
+            int n = arr.Length;
+
+            
+            while(left < n && right < n)
+            {
+                newsum += arr[right];
+                if (newsum == sum)
+                {
+                    Console.WriteLine("Sum is between index " + left.ToString() + " and " + right.ToString());
+                    break;
+                }
+                else if (newsum > sum)
+                {
+                    left++;
+                    newsum = arr[left];
+                    right = left + 1;
+                }
+                else
+                    right++;
+
+            }
+            if (newsum != sum)
+                Console.WriteLine("No sum found");
+
+
         }
     }
 }

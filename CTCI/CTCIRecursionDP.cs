@@ -48,19 +48,24 @@ namespace CTCI
             ArrayList a = new ArrayList();
             a = Permutation("abc");
 
-            //GreeksforGeeks
-            //Generate the Possible binary string based on Pattern
-            //string str = "1??01";
-            string str = "1??0?101";
-            char[] strArr = str.ToCharArray();
-            GenerateBinaryString(strArr,0);
+            //Find Subarray String
+            List<List<Char>> allset = new List<List<Char>>();
+            allset = FindPowerSetString("abc",0);
 
+            ////GreeksforGeeks
+            ////Generate the Possible binary string based on Pattern
+            ////string str = "1??01";
+            //string str = "1??0?101";
+            //char[] strArr = str.ToCharArray();
+            //GenerateBinaryString(strArr,0);
 
-            //C# program to count number of strings  
-            // of n characters with a,b, c and b =1 at most and c=2 atmost
-            int n = 3;
-            int cnt = CountofString(n,1,2);
-            Console.WriteLine(cnt);
+            ////C# program to count number of strings  
+            //// of n characters with a,b, c and b =1 at most and c=2 atmost
+            //int n = 3;
+            //int cnt = CountofString(n,1,2);
+            //Console.WriteLine(cnt);
+
+           
         }
 
         public int Fib(int i, string src)
@@ -253,6 +258,33 @@ namespace CTCI
             dp[n, bCount, cCount] = res;
             return res;
         }
+
+        private List<List<char>> FindPowerSetString(string str, int idx)
+        {
+            List<List<char>> allset;
+            if(str.Length == idx)
+            {
+                allset = new List<List<char>>();
+                allset.Add(new List<char>());
+            }
+            else
+            {
+                allset = FindPowerSetString(str, idx + 1);
+                char item = str[idx];
+                List<List<char>> moreset= new List<List<char>>();
+                foreach (List<char> lst in allset)
+                {
+                    List<char> newset = new List<char>();
+                    newset.AddRange(lst);
+                    newset.Add(item);
+                    moreset.Add(newset);
+                }
+                allset.AddRange(moreset);
+            }
+
+            return allset;
+        }
+
     }
 
 
