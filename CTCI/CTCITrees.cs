@@ -40,6 +40,9 @@ namespace CTCI
             //7 Build Order -- TO Execute
             //8 First Common Ancesstor-- TO Execute
             //9 BST Sequence -- TO Execute
+            //Extra 
+            //Level Order Traversal 
+            LevelOrderTravesal(root);
 
         }
         //2 Minimal Tree
@@ -207,6 +210,25 @@ namespace CTCI
             }
 
             return n;
+        }
+
+        private void LevelOrderTravesal(TreeNode root)
+        {
+            //BST
+            Queue<TreeNode> q = new Queue<TreeNode>();
+            q.Enqueue(root);
+
+            while (q.Count != 0)
+            {
+                TreeNode n = q.Dequeue();
+                Console.WriteLine(n.val);
+                if (n.left != null)
+                    q.Enqueue(n.left);
+
+                if (n.right != null)
+                    q.Enqueue(n.right);
+
+            }
         }
     }
 
