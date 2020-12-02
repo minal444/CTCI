@@ -44,6 +44,20 @@ namespace CTCI
             //Level Order Traversal 
             LevelOrderTravesal(root);
 
+            //Extra 
+            //DFS - Pre Order
+            //Console.WriteLine("Pre Order");
+            //PreOrder(root);
+            //Console.WriteLine("Post Order");
+            //PostOrder(root);
+            //Console.WriteLine("In Order");
+            //InOrder(root);
+
+            //Level order Traversal
+            Console.WriteLine("Leverl order traversal");
+            LevelOrder(root);
+
+
         }
         //2 Minimal Tree
         //Input [2,5,7,9,11,18,20,25,70]
@@ -228,6 +242,59 @@ namespace CTCI
                 if (n.right != null)
                     q.Enqueue(n.right);
 
+            }
+        }
+
+        //public class TreeNodeO
+        //{
+        //    public TreeNodeO left;
+        //    public TreeNodeO right;
+        //    public int val;
+        //    public TreeNodeO(int val, TreeNodeO left = null, TreeNodeO right =null)
+        //    {
+        //        this.val = val;
+        //        this.left = left;
+        //        this.right = right;
+        //    }
+        //}
+
+        public void PreOrder(TreeNode root)
+        {
+            if (root == null) return;
+            Console.WriteLine(root.val);
+            PreOrder(root.left);
+            PreOrder(root.right);
+        }
+
+        public void PostOrder(TreeNode root)
+        {
+            if (root == null) return;
+            PostOrder(root.left);
+            PostOrder(root.right);
+            Console.WriteLine(root.val);
+        }
+
+        public void InOrder(TreeNode root)
+        {
+            if (root == null) return;
+            InOrder(root.left);
+            Console.WriteLine(root.val);
+            InOrder(root.right);
+        }
+
+        public void LevelOrder(TreeNode root)
+        {
+            Queue<TreeNode> q = new Queue<TreeNode>();
+            q.Enqueue(root);
+
+            while (q.Count > 0)
+            {
+                TreeNode node = q.Dequeue();
+                Console.WriteLine(node.val);
+                if (node.left != null)
+                    q.Enqueue(node.left);
+                if (node.right != null)
+                    q.Enqueue(node.right);
             }
         }
     }
