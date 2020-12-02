@@ -13,10 +13,10 @@ namespace CTCI
         public void AllRecursionDP()
         {
             //Default 
-            int fib = Fib(4, "def");
+           // int fib = Fib(4, "def");
 
             //1 Tripple Steps 
-            //int way = CountWays(3);
+           // int way = CountWays(3);
 
             //2 Robot in Grid 
             List<Point> p = new List<Point>();
@@ -32,7 +32,7 @@ namespace CTCI
                 new bool[] { true, false, true, true },
                 new bool[] { true, true, true ,true }
             };
-            p = FindPath(arr);
+           // p = FindPath(arr);
 
             // 3 Magic Index //To Execute
 

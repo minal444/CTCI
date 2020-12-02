@@ -19,6 +19,80 @@ namespace CTCI
         //4. Quequ with Stacks
 
         //5 sort the stack
+
+        //LeetCode
+        //1544 - make good string
+        //GoodString("LeEeetCode");
+        //1249
+        //MinRemoveToMakeValid("ac(f)c)ds");
+
+        public string MakeGood(string s)
+        {
+
+            int len = s.Length;
+            Stack<char> stk = new Stack<char>();
+            stk.Push(s[0]);
+            string goodString = s[0].ToString();
+            int i = 1;
+
+            while (i < len)
+            {
+                if (stk.Count > 0 && Char.ToUpper(s[i]) == Char.ToUpper(stk.Peek()) && (char)stk.Peek() != s[i])
+                {
+                    while (i < len && stk.Count > 0 && Char.ToUpper(s[i]) == Char.ToUpper(stk.Peek()) && (char)stk.Peek() != s[i])
+                    {
+                        char remov = stk.Pop();
+                        //if(goodString.Length>1)
+                        goodString = goodString.Substring(0, goodString.Length - 1);
+                        i++;
+                    }
+                }
+                else
+                {
+                    stk.Push(s[i]);
+                    goodString += s[i].ToString();
+                    i++;
+                }
+            }
+
+
+            return goodString;
+        }
+
+        public string MinRemoveToMakeValid(string s)
+        {
+            StringBuilder sb = new StringBuilder();
+            Stack<int> stk = new Stack<int>();
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                Char c = s[i];
+                if (c == '(' || c == ')')
+                {
+                    if (stk.Count > 0 && c == ')' && s[stk.Peek()] == '(')
+                        stk.Pop();
+                    else
+                        stk.Push(i);
+                }
+            }
+
+            for (int i = s.Length - 1; i >= 0; i--)
+            {
+                if (stk.Count > 0 && i == stk.Peek())
+                    stk.Pop();
+                else
+                    sb.Append(s[i]);
+                //sb.Insert(0,s[i]);
+            }
+            StringBuilder result = new StringBuilder();
+            for (int i = sb.Length - 1; i >= 0; i--)
+            {
+                result.Append(sb[i]);
+            }
+
+            return result.ToString();
+
+        }
     }
 
     //2 Stack returns min element. Pop, push and min should be O(1)
@@ -186,4 +260,7 @@ namespace CTCI
 
 
     }
+
+
+
 }

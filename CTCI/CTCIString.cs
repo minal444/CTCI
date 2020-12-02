@@ -29,7 +29,7 @@ namespace CTCI
             //bool b = IsPalindromePermutaion("Minal Patel");
 
             //Geeks for geeks
-            List<string> dict = new List<string>();
+           // List<string> dict = new List<string>();
             /*dict.Add("ale");
             dict.Add("apple");
             dict.Add("monkey");
@@ -43,9 +43,9 @@ namespace CTCI
             //string strdic = LargestWord(dict, str );
 
             //Find subarray with given sum
-            int[] arr = new int[] { 1, 4 };
-            int sum = 0;
-            SubArraySum(arr,sum);
+            //int[] arr = new int[] { 1, 4 };
+            //int sum = 0;
+            //SubArraySum(arr,sum);
 
             //Codility exam
             //int[] a = new int[] { 0,1,2,2,3,5};
@@ -55,7 +55,12 @@ namespace CTCI
             //FB exam
             //double degree = FindDegree(12, 0);
 
+            //Leetcode
+            //1640
+            //CanFormArray(int[] arr, int[][] pieces);
 
+            //Getwinner
+            GetWinner(new int[] { 3, 2, 1 }, 10);
         }
         //1
         //Questions:
@@ -361,6 +366,134 @@ namespace CTCI
                 Console.WriteLine("No sum found");
 
 
+        }
+
+        public bool CanFormArray(int[] arr, int[][] pieces)
+        {
+            int len = arr.Length;
+            int[] newArr = new int[len];
+
+            //int p_len =0;
+            Hashtable ht = new Hashtable();
+            for (int i = 0; i < pieces.Length; i++)
+            {
+                if (!ht.Contains(pieces[i][0]))
+                {
+                    int[] subarr = new int[pieces[i].Length];
+                    subarr = pieces[i];
+                    ht.Add(pieces[i][0], subarr);
+                }
+            }
+
+            // Console.WriteLine(p_len);
+            int curr_idx = 0;
+            while (curr_idx < len)
+            {
+                if (!ht.Contains(arr[curr_idx]))
+                {
+                    return false;
+                }
+                else
+                {
+                    int[] curr = (int[])ht[arr[curr_idx]];
+                    Console.WriteLine(curr.Length);
+                    for (int i = 0; i < curr.Length; i++)
+                    {
+
+                        newArr[curr_idx] = (int)curr[i];
+                        if (newArr[curr_idx] != arr[curr_idx])
+                            return false;
+                        curr_idx++;
+                    }
+                }
+            }
+
+
+
+            return true;
+
+        }
+        //public int GetWinner(int[] arr, int k)
+        //{
+        //    /*
+        //    int winner_counter = 0;
+        //    int curr_winner = 0;
+        //    loop through arr till winner count is K
+        //    compare arr[0] with arr[1] 
+        //    if arr[0] > arr[1]
+        //        RorateArr(start from 1 to lenth)
+        //    else 
+        //        RorateArr(start from 0 to lenth)
+
+        //    */
+        //    int winner_counter = 0;
+        //    int curr_winner = 0;
+
+        //    while (winner_counter != k)
+        //    {
+        //        if (arr[0] > arr[1])
+        //        {
+        //            if (curr_winner == arr[0])
+        //                winner_counter++;
+        //            else
+        //                winner_counter = 1;
+
+        //            curr_winner = arr[0];
+        //            arr = Rotate(arr, 1, arr.Length - 1);
+        //        }
+        //        else
+        //        {
+        //            if (curr_winner == arr[1])
+        //                winner_counter++;
+        //            else
+        //                winner_counter = 1;
+
+        //            curr_winner = arr[1];
+        //            arr = Rotate(arr, 0, arr.Length - 1);
+        //        }
+        //    }
+
+
+        //    return curr_winner;
+
+        //}
+
+        //private int[] Rotate(int[] arr, int start, int end)
+        //{
+        //    int[] arrnew = new int[arr.Length];
+        //    int tmp = arr[start];
+        //    for (int i = start; i < end; i++)
+        //    {
+        //        arrnew[i] = arr[i + 1];
+        //    }
+
+        //    arrnew[end] = tmp;
+        //    return arrnew;
+        //}
+
+        public int GetWinner(int[] arr, int k)
+        {
+            int max = arr[0];
+            int count = 0;
+            int globalMax = arr[0];
+            for (int i = 1; i < arr.Length; i++)
+            {
+                if (arr[i] > max)
+                {
+                    count = 1;
+                    max = arr[i];
+                }
+                else
+                {
+                    count++;
+                }
+                globalMax = Math.Max(globalMax, arr[i]);
+                if (count == k)
+                {
+                    return max;
+                }
+            }
+            return globalMax;
         }
     }
 }
