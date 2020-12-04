@@ -65,6 +65,13 @@ namespace CTCI
             //int cnt = CountofString(n,1,2);
             //Console.WriteLine(cnt);
 
+            //Extra 
+            //Knapsack
+            int[] v = new int[] { 60, 100, 120};
+            int[] w = new int[] {10, 20,30};
+            int capacity = 25;
+            int[][] tmp = new int[v.Length-1][];
+            int maxVal = GetMaxValue(v, w, capacity, v.Length-1, tmp);
            
         }
 
@@ -283,6 +290,22 @@ namespace CTCI
             }
 
             return allset;
+        }
+
+        private int GetMaxValue(int[] v , int[] w, int capacity, int n ,int[][] tmp)
+        {
+            int result;
+            if (tmp[n][capacity] != 0) return tmp[n][capacity];
+            if (n == 0 || capacity == 0)
+                return 0;
+            else if (w[n] > capacity)
+                result = GetMaxValue(v,w,capacity, n-1, tmp);
+            else
+            {
+                result = Math.Max(v[n] + GetMaxValue(v, w, capacity - w[n], n - 1, tmp), GetMaxValue(v, w, capacity, n - 1, tmp));
+            }
+            tmp[n][capacity] = result;
+            return result;
         }
 
     }

@@ -56,8 +56,6 @@ namespace CTCI
             //Level order Traversal
             Console.WriteLine("Leverl order traversal");
             LevelOrder(root);
-
-
         }
         //2 Minimal Tree
         //Input [2,5,7,9,11,18,20,25,70]
