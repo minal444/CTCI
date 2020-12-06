@@ -28,8 +28,11 @@ namespace CTCI
             //ClientTemplete c = new ClientTemplete();
             //c.Process();
 
-            CTCIGraphs g = new CTCIGraphs();
-            g.AllGraphs();
+            //CTCIGraphs g = new CTCIGraphs();
+            //g.AllGraphs();
+
+            CTCISortSearch g = new CTCISortSearch();
+            g.AllSortSearch();
         }
     }
 }
