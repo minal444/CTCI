@@ -9,8 +9,8 @@ namespace CTCI
         public static void Main(string[] args)
         {
             //Console.WriteLine("Hello World!");
-            //CTCIString cTCI = new CTCIString();
-            //cTCI.AllStrings();
+            CTCIString cTCI = new CTCIString();
+            cTCI.AllStrings();
 
             //CTCITrees cTCITree = new CTCITrees();
             //cTCITree.AllTree();
@@ -31,8 +31,8 @@ namespace CTCI
             //CTCIGraphs g = new CTCIGraphs();
             //g.AllGraphs();
 
-            CTCISortSearch g = new CTCISortSearch();
-            g.AllSortSearch();
+            //CTCISortSearch g = new CTCISortSearch();
+            //g.AllSortSearch();
         }
     }
 }

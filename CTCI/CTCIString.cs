@@ -29,7 +29,7 @@ namespace CTCI
             //bool b = IsPalindromePermutaion("Minal Patel");
 
             //Geeks for geeks
-           // List<string> dict = new List<string>();
+            // List<string> dict = new List<string>();
             /*dict.Add("ale");
             dict.Add("apple");
             dict.Add("monkey");
@@ -60,7 +60,14 @@ namespace CTCI
             //CanFormArray(int[] arr, int[][] pieces);
 
             //Getwinner
-            GetWinner(new int[] { 3, 2, 1 }, 10);
+            //GetWinner(new int[] { 3, 2, 1 }, 10);
+
+            //Leet code 1638. Count Substrings That Differ by One Character
+            //int ans = CountSubstrings("aba", "baba");
+
+
+            //Leetcode Sliding Window //1658.Minimum Operations to Reduce X to Zero
+            int ans = MinOperations(new int[] { 1, 1, 4, 2, 3 }, 5);
         }
         //1
         //Questions:
@@ -494,6 +501,84 @@ namespace CTCI
                 }
             }
             return globalMax;
+        }
+
+        //
+        public int CountSubstrings(string s, string t)
+        {
+            int n = s.Length;
+            int m = t.Length;
+
+            int[][] diff = new int[n][];
+            int[][] id = new int[n][];
+
+
+
+            int total = 0;
+            for (int i = 0; i < n; i++)
+            {
+                diff[i] = new int[m];
+                diff[i][0] = s[i] == t[0] ? 0 : 1;
+                id[i] = new int[m];
+                id[i][0] = s[i] == t[0] ? 1 : 0;
+                total += diff[i][0];
+            }
+            for (int j = 0; j < m; j++)
+            {
+                diff[0][j] = s[0] == t[j] ? 0 : 1;
+                id[0][j] = s[0] == t[j] ? 1 : 0;
+                total += diff[0][j];
+            }
+            total -= diff[0][0]; //double counted
+
+            for (int i = 1; i < n; i++)
+            {
+                for (int j = 1; j < m; j++)
+                {
+                    if (s[i] == t[j])
+                    {
+                        diff[i][j] = diff[i - 1][j - 1];
+                        id[i][j] = 1 + id[i - 1][j - 1];
+                    }
+                    else
+                    {
+                        diff[i][j] = 1 + id[i - 1][j - 1];
+                        id[i][j] = 0;
+                    }
+                    total += diff[i][j];
+                }
+            }
+            return total;
+        }
+
+        //1658. Minimum Operations to Reduce X to Zero
+        public int MinOperations(int[] nums, int x)
+        {
+            int sum = 0;
+            for(int i=0; i < nums.Length;   i++)
+            {
+                sum += nums[i];
+            }
+            sum -= x; // ****totalsum-target to find maxSubArray 
+            int left = 0, right = 0, ans = -1;
+            int subArraySum = 0;
+            while (right < nums.Length)
+            {
+                subArraySum += nums[right];
+                if (subArraySum > sum)
+                {
+                    while (subArraySum > sum && left <= right)
+                    {
+                        subArraySum -= nums[left++];
+                    }
+                }
+                if (subArraySum == sum)
+                {
+                    ans = Math.Max(ans, right - left + 1);
+                }
+                right++;
+            }
+            return ans == -1 ? ans : nums.Length - ans;
         }
     }
 }

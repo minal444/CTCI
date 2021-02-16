@@ -12,11 +12,16 @@ namespace CTCI
     {
         public void AllRecursionDP()
         {
+
+            //Recursion
+            int[] result = new int[2 * 4 - 1];
+            result = ConstructDistancedSequence(4);
+
             //Default 
-           // int fib = Fib(4, "def");
+            // int fib = Fib(4, "def");
 
             //1 Tripple Steps 
-           // int way = CountWays(3);
+            // int way = CountWays(3);
 
             //2 Robot in Grid 
             List<Point> p = new List<Point>();
@@ -72,7 +77,66 @@ namespace CTCI
             int capacity = 25;
             int[][] tmp = new int[v.Length-1][];
             int maxVal = GetMaxValue(v, w, capacity, v.Length-1, tmp);
+
            
+
+
+        }
+        public int[] ConstructDistancedSequence(int n)
+        {
+            int[] result = new int[2 * n - 1];
+            bool[] visited = new bool[n + 1];
+            helper(0, result, visited, n);
+            return result;
+        }
+
+        private bool helper(int currentIndex, int[] result, bool[] visited, int n)
+        {
+            if (currentIndex == result.Length)
+            {
+                return true;
+            }
+
+            if (result[currentIndex] != 0)
+            {
+                return helper(currentIndex + 1, result, visited, n);
+            }
+
+            for (int nextValue = n; nextValue > 0; nextValue--)
+            {
+                if (visited[nextValue])
+                {
+                    continue;
+                }
+
+                visited[nextValue] = true;
+                result[currentIndex] = nextValue;
+
+                if (nextValue == 1)
+                {
+                    if (helper(currentIndex + 1, result, visited, n))
+                    {
+                        return true;
+                    }
+                }
+
+                else if (currentIndex + nextValue < result.Length && result[currentIndex + nextValue] == 0)
+                {
+                    result[currentIndex + nextValue] = nextValue;
+
+                    if (helper(currentIndex + 1, result, visited, n))
+                    {
+                        return true;
+                    }
+
+                    result[currentIndex + nextValue] = 0;
+                }
+
+                visited[nextValue] = false;
+                result[currentIndex] = 0;
+            }
+
+            return false;
         }
 
         public int Fib(int i, string src)
