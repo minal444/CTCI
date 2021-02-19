@@ -5,6 +5,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace CTCI
@@ -579,6 +580,85 @@ namespace CTCI
                 right++;
             }
             return ans == -1 ? ans : nums.Length - ans;
+        }
+
+
+        //tesla first
+        private int findMaxOperations(string s)
+        {
+            int returnResult = 0;
+            int repeatCount = 1;
+            for (int i = 0; i < s.Length - 1; i++)
+            {
+                if (s[i] != s[i + 1])
+                {
+                    repeatCount = 1;
+                    continue;
+                }
+                else if (s[i] == s[i + 1])
+                {
+                    repeatCount += 1;
+                }
+                if (repeatCount == 3)
+                {
+                    returnResult += 1;
+                    repeatCount = 0;
+                    continue;
+                }
+            }
+
+            return returnResult;
+        }
+        //tesla last 
+        public int solution(string[] T, string[] R)
+        {
+            // write your code in C# 6.0 with .NET 4.5 (Mono)
+            //Get all the groups = test1 : 3 , test2 : 1, test 3 : 1
+            Hashtable ht = new Hashtable();
+            string grpName = "";
+            bool IsPass;
+            for (int i = 0; i < T.Length; i++)
+            {
+                grpName = GetGroupName(T[i]);
+
+                if (ht.Contains(grpName))
+                {
+                    IsPass = (bool)ht[grpName];
+                    if (IsPass != GetResultVal(R[i]))
+                        ht[grpName] = false;
+
+                }
+                else
+                {
+                    ht.Add(grpName, GetResultVal(R[i]));
+                }
+            }
+            int total = ht.Count;
+            int passTotal = 0;
+            //Get all results 
+            foreach (var key in ht.Keys)
+            {
+                if ((bool)ht[key] == true)
+                    passTotal++;
+            }
+
+            if (total > 0)
+                return (int)(passTotal * 100) / total;
+            return 0;
+
+        }
+        public string GetGroupName(string str)
+        {
+            //System.Text.RegularExpressions.Regex 
+            return Regex.Match(str, @"\d+").Value;
+        }
+
+        public bool GetResultVal(string str)
+        {
+            if (str.ToLower() == "ok")
+                return true;
+
+            return false;
         }
     }
 }

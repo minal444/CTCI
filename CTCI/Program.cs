@@ -1,4 +1,5 @@
 ﻿using CTCI.DesignPatterns.FactoryPattern;
+using CTCI.DesignPatterns.SOLID;
 using CTCI.DesignPatterns.TemplatePattern;
 using System;
 
@@ -9,8 +10,8 @@ namespace CTCI
         public static void Main(string[] args)
         {
             //Console.WriteLine("Hello World!");
-            CTCIString cTCI = new CTCIString();
-            cTCI.AllStrings();
+            // CTCIString cTCI = new CTCIString();
+            // cTCI.AllStrings();
 
             //CTCITrees cTCITree = new CTCITrees();
             //cTCITree.AllTree();
@@ -33,6 +34,22 @@ namespace CTCI
 
             //CTCISortSearch g = new CTCISortSearch();
             //g.AllSortSearch();
+
+
+
+            /************************************/
+            SingleResponsibility sr = new SingleResponsibility();
+            sr.Purchase();
+
+
+            OpenClose oc = new OpenClose();
+            oc.GetInvoiceDiscount();
+
+            LiskovSubstitution ls = new LiskovSubstitution();
+            ls.SubmitApp();
+
+            InterfaceSegration s = new InterfaceSegration();
+            s.GetProfile();
         }
     }
 }
