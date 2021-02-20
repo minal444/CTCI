@@ -50,6 +50,9 @@ namespace CTCI
 
             InterfaceSegration s = new InterfaceSegration();
             s.GetProfile();
+
+            DependancyInversionExample2 di = new DependancyInversionExample2();
+            di.Notification();
         }
     }
 }

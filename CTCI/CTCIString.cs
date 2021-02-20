@@ -333,15 +333,22 @@ namespace CTCI
 
             int md = m * 6;
             double hd = (h * 5 * 6) + (m * 0.5);
-            if (hd < m)
+            if (hd < md)
                 degree = md - hd;
             else
                 degree = hd - md;
 
-            if (degree > 180)
-                degree = 360 - degree;
-                   
-            return degree;
+            //if (degree > 180)
+            //    degree = 360 - degree;
+
+            // return degree;
+
+            if (Math.Abs(degree) > 180)
+                degree = 360 - Math.Abs(degree);
+
+            return Math.Abs(degree);
+
+           
         }
 
         private void SubArraySum(int[] arr, int sum)
