@@ -1,4 +1,6 @@
 ﻿using CTCI.DesignPatterns.FactoryPattern;
+using CTCI.DesignPatterns.Singleton;
+using CTCI.DesignPatterns.Prototype;
 using CTCI.DesignPatterns.SOLID;
 using CTCI.DesignPatterns.TemplatePattern;
 using System;
@@ -53,6 +55,16 @@ namespace CTCI
 
             DependancyInversionExample2 di = new DependancyInversionExample2();
             di.Notification();
+
+            /***************************************************/
+            //Design Pattern
+            ClientSingleton c = new ClientSingleton();
+            c.SingletonClient();
+
+            Prototype p = new Prototype();
+            p.PrototypeDP();
+
+
         }
     }
 }
