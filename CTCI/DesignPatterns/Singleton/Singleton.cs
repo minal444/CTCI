@@ -70,15 +70,15 @@ namespace CTCI.DesignPatterns.Singleton
         public void SingletonClient()
         {
             //No thread safe
-            //Singleton singleton = Singleton.GetInstance;
-            //Singleton singleton2 = Singleton.GetInstance;
+            Singleton singleton = Singleton.GetInstance;
+            Singleton singleton2 = Singleton.GetInstance;
 
 
             //Thread safe implementation 
-            Parallel.Invoke(
-                () => Thread1(),
-                () => Thread2()
-                );
+            //Parallel.Invoke(
+            //    () => Thread1(),
+            //    () => Thread2()
+            //    );
 
 
         }

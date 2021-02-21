@@ -4,6 +4,8 @@ using CTCI.DesignPatterns.Prototype;
 using CTCI.DesignPatterns.SOLID;
 using CTCI.DesignPatterns.TemplatePattern;
 using System;
+using CTCI.DesignPatterns.FactoryMethod;
+using CTCI.DesignPatterns.Builder;
 
 namespace CTCI
 {
@@ -39,10 +41,9 @@ namespace CTCI
 
 
 
-            /************************************/
+            /*******************SOLID*****************/
             SingleResponsibility sr = new SingleResponsibility();
             sr.Purchase();
-
 
             OpenClose oc = new OpenClose();
             oc.GetInvoiceDiscount();
@@ -63,6 +64,12 @@ namespace CTCI
 
             Prototype p = new Prototype();
             p.PrototypeDP();
+
+            FactoryMethodDP fm = new FactoryMethodDP();
+            fm.FactoryMethod();
+
+            BuilderDP b = new BuilderDP();
+            b.BuildCar();
 
 
         }
