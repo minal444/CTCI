@@ -17,7 +17,7 @@ namespace CTCI.DesignPatterns.Prototype
             Console.WriteLine("Name: " + emp1.Name + ", Department: " + emp1.Department);
             Console.WriteLine("Emplpyee 2: ");
             Console.WriteLine("Name: " + emp2.Name + ", Department: " + emp2.Department);
-            Console.Read();
+            //Console.Read();
         }
 
     }

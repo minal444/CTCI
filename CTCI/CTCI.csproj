@@ -5,10 +5,4 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="DesignPatterns\FacadePattern\Interface\" />
-    <Folder Include="DesignPatterns\FacadePattern\Implementation\" />
-    <Folder Include="DesignPatterns\FacadePattern\Model\" />
-  </ItemGroup>
-
 </Project>

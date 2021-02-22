@@ -14,8 +14,8 @@ namespace CTCI
         {
 
             //Recursion
-            int[] result = new int[2 * 4 - 1];
-            result = ConstructDistancedSequence(4);
+            //int[] result = new int[2 * 4 - 1];
+            //result = ConstructDistancedSequence(4);
 
             //Default 
             // int fib = Fib(4, "def");
@@ -24,38 +24,38 @@ namespace CTCI
             // int way = CountWays(3);
 
             //2 Robot in Grid 
-            List<Point> p = new List<Point>();
+            //  List<Point> p = new List<Point>();
             //bool[][] b = new bool[3][];
             //b[0] = new bool[4];
             //b[1] = new bool[4];
             //b[2] = new bool[4];
             //b[0] = new bool[] { true, false, true, false };
 
-            bool[][] arr = new bool[][]
-            {
-                new bool[] { true, true, false, true },
-                new bool[] { true, false, true, true },
-                new bool[] { true, true, true ,true }
-            };
-           // p = FindPath(arr);
+            //bool[][] arr = new bool[][]
+            //{
+            //    new bool[] { true, true, false, true },
+            //    new bool[] { true, false, true, true },
+            //    new bool[] { true, true, true ,true }
+            //};
+            // p = FindPath(arr);
 
             // 3 Magic Index //To Execute
 
             //4 Power Set 
-            List<List<int>> allsubset = new List<List<int>>();
-            List<int> set = new List<int>();
-            set.Add(1);
-            set.Add(2);
-            set.Add(3);
-            allsubset = PowerSet(set,0);
+            //List<List<int>> allsubset = new List<List<int>>();
+            //List<int> set = new List<int>();
+            //set.Add(1);
+            //set.Add(2);
+            //set.Add(3);
+            //allsubset = PowerSet(set,0);
 
             //7 Permutation of unique string 
-            ArrayList a = new ArrayList();
-            a = Permutation("abc");
+            //ArrayList a = new ArrayList();
+            //a = Permutation("abc");
 
             //Find Subarray String
-            List<List<Char>> allset = new List<List<Char>>();
-            allset = FindPowerSetString("abc",0);
+            //List<List<Char>> allset = new List<List<Char>>();
+            //allset = FindPowerSetString("abc",0);
 
             ////GreeksforGeeks
             ////Generate the Possible binary string based on Pattern
@@ -71,15 +71,16 @@ namespace CTCI
             //Console.WriteLine(cnt);
 
             //Extra 
-            //Knapsack
-            int[] v = new int[] { 60, 100, 120};
-            int[] w = new int[] {10, 20,30};
-            int capacity = 25;
-            int[][] tmp = new int[v.Length-1][];
-            int maxVal = GetMaxValue(v, w, capacity, v.Length-1, tmp);
+            ////Knapsack
+            //int[] v = new int[] { 60, 100, 120};
+            //int[] w = new int[] {10, 20,30};
+            //int capacity = 25;
+            //int[][] tmp = new int[v.Length-1][];
+            //int maxVal = GetMaxValue(v, w, capacity, v.Length-1, tmp);
 
-           
 
+            // 967.Numbers With Same Consecutive Differences
+            int[] ans = NumsSameConsecDiff(3, 4);
 
         }
         public int[] ConstructDistancedSequence(int n)
@@ -370,6 +371,45 @@ namespace CTCI
             }
             tmp[n][capacity] = result;
             return result;
+        }
+
+        public int[] NumsSameConsecDiff(int n, int k)
+        {
+           
+            int[] digits = new int[10] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            if (n == 1)
+            {
+                return digits;
+            }
+
+            List<int> result = new List<int>();
+
+            for (int i = 1; i < digits.Length; i++)
+            {
+                getNums(digits[i], digits, n - 1, k, result);
+            }
+
+            return result.ToArray();
+
+
+        }
+
+        private void getNums(int currentResult, int[] digits, int N, int k, List<int> result)
+        {
+            if (N == 0)
+            {
+                result.Add(currentResult);
+                return;
+            }
+
+            int lastDigit = currentResult % 10;
+            for (int i = 0; i < digits.Length; i++)
+            {
+                if (Math.Abs(digits[i] - lastDigit) == k)
+                {
+                    getNums(currentResult * 10 + digits[i], digits, N - 1, k, result);
+                }
+            }
         }
 
     }

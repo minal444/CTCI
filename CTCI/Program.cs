@@ -3,6 +3,8 @@ using CTCI.DesignPatterns.Singleton;
 using CTCI.DesignPatterns.Prototype;
 using CTCI.DesignPatterns.SOLID;
 using CTCI.DesignPatterns.TemplatePattern;
+using CTCI.DesignPatterns.Adapter;
+using CTCI.DesignPatterns.FacadePattern;
 using System;
 
 namespace CTCI
@@ -18,8 +20,8 @@ namespace CTCI
             //CTCITrees cTCITree = new CTCITrees();
             //cTCITree.AllTree();
 
-            //CTCIRecursionDP R = new CTCIRecursionDP();
-            //R.AllRecursionDP();
+           // CTCIRecursionDP R = new CTCIRecursionDP();
+           // R.AllRecursionDP();
 
             //CTCIModerate M = new CTCIModerate();
             //M.AllModerate();
@@ -64,7 +66,11 @@ namespace CTCI
             Prototype p = new Prototype();
             p.PrototypeDP();
 
+            AdapterDP a = new AdapterDP();
+            a.GetClientProfile();
 
+            Facade f = new Facade();
+            f.ApplicationSumission();
         }
     }
 }
