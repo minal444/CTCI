@@ -31,8 +31,8 @@ namespace CTCI.DesignPatterns.FactoryPattern
             //If user is admin then sendemail with different way.
             //If user is not-admin then sendemail differnt way 
         //Ways to create factory pattern
-            //1 create interface for base methods
-            //2 create subclass and implement the interface
+            //1 create interface for base methods. GetPermissions, Send Email
+            //2 create subclass and implement the interface. Implement GetPermissions and SendEmail
             //3 create facotory class which retrun interface as object. Take parameter and based on that it will return the object 
             //4 client class will use the Interface object 
     }
