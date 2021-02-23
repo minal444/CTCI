@@ -26,6 +26,14 @@ namespace CTCI
         //1249
         //MinRemoveToMakeValid("ac(f)c)ds");
 
+
+        //
+        public void AllStack()
+        {
+            //
+            string ans = RemoveDuplicates("deeedbbcccbdaa", 3);
+        }
+
         public string MakeGood(string s)
         {
 
@@ -92,6 +100,60 @@ namespace CTCI
 
             return result.ToString();
 
+        }
+        //1209. Remove All Adjacent Duplicates in String II
+        public string RemoveDuplicates(string s, int k)
+        {
+             
+            int len = s.Length;
+
+            if (len <= 1) return s;
+            if (k < 2) return "";
+            if (len < k) return s;
+
+            Stack<char> charStack = new Stack<char>();
+            Stack<int> counterStack = new Stack<int>();
+
+            for (int i = 0; i < len; i++)
+            {
+                if (charStack.Count == 0)
+                {
+                    charStack.Push(s[i]);
+                    counterStack.Push(1);
+                }
+                else
+                {
+                    Char top = charStack.Peek();
+                    int topCounter = counterStack.Peek();
+                    if (top == s[i] && topCounter + 1 == k)
+                    {
+                        while (topCounter != 0)
+                        {
+                            charStack.Pop();
+                            counterStack.Pop();
+                            topCounter--;
+                        }
+                    }
+                    else
+                    {
+                        charStack.Push(s[i]);
+                        if(top == s[i])
+                            counterStack.Push(topCounter + 1);
+                        else
+                            counterStack.Push(1);
+                    }
+                }
+
+            }
+
+            StringBuilder sb = new StringBuilder();
+            int count = charStack.Count;
+            for (int i = 0; i < count; i++)
+            {
+                sb.Insert(0, charStack.Pop());
+            }
+
+            return sb.ToString();
         }
     }
 
@@ -197,6 +259,8 @@ namespace CTCI
         }
 
     }
+
+
 
     //4. Queues Via Stack
     //Space Complexity : O(1)
