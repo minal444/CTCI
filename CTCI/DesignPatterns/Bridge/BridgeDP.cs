@@ -75,4 +75,69 @@ namespace CTCI.DesignPatterns.Bridge
         }
     }
 
+
+
+    //Sample design Pattern
+    //Step 1 : Abstract Implementor
+
+    public enum ProgramType
+    {
+        PNS,
+        NBS,
+        Outcome
+    }
+    public interface IMailer
+    {
+        public void SendMailer();
+    }
+
+
+    //Step 2: concreate implementer
+    public class PNSMailer : IMailer
+    {
+        public void SendMailer()
+        {
+
+        }
+    }
+
+    public class NBSMailer : IMailer
+    {
+        public void SendMailer()
+        {
+
+        }
+    }
+
+    public class OutcomeMailer : IMailer
+    {
+        public void SendMailer()
+        {
+
+        }
+    }
+
+    //Step 3 : AbstractFactory
+    public abstract class MailerFactory
+    {
+        public IMailer GetMailerFactory(ProgramType program)
+        {
+            IMailer obj = null;
+            if (program == ProgramType.NBS)
+            {
+                obj= new  NBSMailer();
+            }
+           else if (program == ProgramType.PNS)
+            {
+                obj = new PNSMailer();
+            }
+            else if(program == ProgramType.Outcome)
+            {
+                obj = new OutcomeMailer();
+            }
+
+            return obj;
+        }
+    }
+
 }

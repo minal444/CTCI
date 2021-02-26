@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Caching;
 
 namespace CTCI.DesignPatterns.Singleton
 {
@@ -98,7 +99,8 @@ namespace CTCI.DesignPatterns.Singleton
     }
 
 
-    //Real Time Example 
+    //Real Time Example 1:
+    //Step 1: 
     public interface ILog
     {
         void LogException(string message);
@@ -149,4 +151,91 @@ namespace CTCI.DesignPatterns.Singleton
         }
        */
     }
+
+
+    //Real Time Example 2:
+    //Caching 
+    //Step 1:
+    public interface IGlobalCaching
+    {
+        public void AddItem(string key, object value);
+        public void RemoveItem(string key);
+        public object GetItem(string key);
     }
+    //Step 2:
+    public class GlobalCaching : IGlobalCaching
+    {
+        private static  GlobalCaching instance = null;
+        private static readonly Object lockObj = new Object();
+        protected MemoryCache cache = new MemoryCache("MyCache"); 
+        private GlobalCaching()
+        {
+
+        }
+
+        public static GlobalCaching GetInstance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (lockObj)
+                    {
+                        if (instance == null)
+                        {
+                            instance = new GlobalCaching();
+                        }
+                       
+                    }
+                }
+                return instance;
+            }
+
+        }
+        public void AddItem(string key, object value)
+        {
+            lock(lockObj)
+            {
+                cache.Add(key, value,System.DateTime.Now.AddDays(4));
+            }
+        }
+
+        public object GetItem(string key)
+        {
+            lock(lockObj)
+            {
+                return cache[key];
+            }
+            
+        }
+
+        public void RemoveItem(string key)
+        {
+            lock (lockObj)
+            {
+                if(cache[key]!=null)
+                    cache.Remove(key);
+            }
+        }
+    }
+
+    //Step 3:
+    public class CacheClient
+    {
+        private IGlobalCaching _IGlobalCache;
+        //private EmployeeDBContext db = new EmployeeDBContext();
+        public CacheClient()
+        {
+            _IGlobalCache = GlobalCaching.GetInstance;
+        }
+        public  void AddToCache()
+        {
+            GlobalCaching.GetInstance.AddItem("ConnectionDB", "TestDB");
+            GlobalCaching.GetInstance.AddItem("TimeOut", "50");
+
+            Console.WriteLine(GlobalCaching.GetInstance.GetItem("ConnectionDB"));
+            // this.View("Error").ExecuteResult(this.ControllerContext);
+        }
+
+    }
+}

@@ -66,6 +66,10 @@ namespace CTCI
             ClientSingleton c = new ClientSingleton();
             c.SingletonClient();
 
+            CacheClient cache = new CacheClient();
+            cache.AddToCache();
+
+
             Prototype p = new Prototype();
             p.PrototypeDP();
 
