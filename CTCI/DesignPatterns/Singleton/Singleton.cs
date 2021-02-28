@@ -163,7 +163,7 @@ namespace CTCI.DesignPatterns.Singleton
         public object GetItem(string key);
     }
     //Step 2:
-    public class GlobalCaching : IGlobalCaching
+    public sealed class GlobalCaching : IGlobalCaching
     {
         private static  GlobalCaching instance = null;
         private static readonly Object lockObj = new Object();

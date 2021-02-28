@@ -8,6 +8,8 @@ using CTCI.DesignPatterns.FacadePattern;
 using System;
 using CTCI.DesignPatterns.FactoryMethod;
 using CTCI.DesignPatterns.Builder;
+using CTCI.DesignPatterns.DependancyInjection;
+using CTCI.DesignPatterns.Observer;
 
 namespace CTCI
 {
@@ -41,25 +43,26 @@ namespace CTCI
             //CTCISortSearch g = new CTCISortSearch();
             //g.AllSortSearch();
 
-            CTCIStacksQueue sq = new CTCIStacksQueue();
-            sq.AllStack();
+
+            //CTCIStacksQueue sq = new CTCIStacksQueue();
+            //sq.AllStack();
 
 
             /*******************SOLID*****************/
-            SingleResponsibility sr = new SingleResponsibility();
-            sr.Purchase();
+            //SingleResponsibility sr = new SingleResponsibility();
+            //sr.Purchase();
 
-            OpenClose oc = new OpenClose();
-            oc.GetInvoiceDiscount();
+            //OpenClose oc = new OpenClose();
+            //oc.GetInvoiceDiscount();
 
-            LiskovSubstitution ls = new LiskovSubstitution();
-            ls.SubmitApp();
+            //LiskovSubstitution ls = new LiskovSubstitution();
+            //ls.SubmitApp();
 
-            InterfaceSegration s = new InterfaceSegration();
-            s.GetProfile();
+            //InterfaceSegration s = new InterfaceSegration();
+            //s.GetProfile();
 
-            DependancyInversionExample2 di = new DependancyInversionExample2();
-            di.Notification();
+            //DependancyInversionExample2 di = new DependancyInversionExample2();
+            //di.Notification();
 
             /***************************************************/
             //Design Pattern
@@ -84,6 +87,12 @@ namespace CTCI
 
             Facade f = new Facade();
             f.ApplicationSumission();
+
+            DependancyInjectionDP d = new DependancyInjectionDP();
+            d.GetEmployee();
+
+            Observer_PubSub ps = new Observer_PubSub();
+            ps.Observer();
         }
     }
 }
