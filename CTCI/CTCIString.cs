@@ -69,6 +69,8 @@ namespace CTCI
 
             //Leetcode Sliding Window //1658.Minimum Operations to Reduce X to Zero
             int ans = MinOperations(new int[] { 1, 1, 4, 2, 3 }, 5);
+
+            int[] ans1  = minOperations("001011");
         }
         //1
         //Questions:
@@ -666,6 +668,36 @@ namespace CTCI
                 return true;
 
             return false;
+        }
+
+        public int[] minOperations(String boxes)
+        {
+            int n = boxes.Length;
+            char[] ch = boxes.ToCharArray();
+
+            int[] left = new int[n];
+            int count = ch[0] - '0';
+            for (int i = 1; i < n; i++)
+            {
+                left[i] = left[i - 1] + count;
+                count += ch[i] - '0';
+            }
+
+            int[] right = new int[n];
+            count = ch[n - 1] - '0';
+            for (int i = n - 2; i >= 0; i--)
+            {
+                right[i] = right[i + 1] + count;
+                count += ch[i] - '0';
+            }
+
+            int[] answer = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                answer[i] = left[i] + right[i];
+            }
+
+            return answer;
         }
     }
 }

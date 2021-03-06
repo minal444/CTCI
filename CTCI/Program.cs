@@ -18,8 +18,8 @@ namespace CTCI
         public static void Main(string[] args)
         {
             //Console.WriteLine("Hello World!");
-            // CTCIString cTCI = new CTCIString();
-            // cTCI.AllStrings();
+            CTCIString cTCI = new CTCIString();
+            cTCI.AllStrings();
 
             //CTCITrees cTCITree = new CTCITrees();
             //cTCITree.AllTree();
