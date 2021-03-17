@@ -31,3 +31,8 @@ Math & Logic :  0
 Hard         :  9 
 
 
+------------------TO DO 
+1. Greedy Algorythms 
+2. Priority Queue
+3. Heap 
+4. Bit operations 

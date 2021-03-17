@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,33 +17,33 @@ namespace CTCI
             //NodesByDepth()
 
             //4 Check Balanced
-            TreeNode root = new TreeNode();
-            root.val = 20;
-            root.left = new TreeNode();
-            root.left.val = 10;
-            root.right = new TreeNode();
-            root.right.val = 30;
-            root.right.right = new TreeNode();
-            root.right.right.val = 45;
+            //TreeNode root = new TreeNode();
+            //root.val = 20;
+            //root.left = new TreeNode();
+            //root.left.val = 10;
+            //root.right = new TreeNode();
+            //root.right.val = 30;
+            //root.right.right = new TreeNode();
+            //root.right.right.val = 45;
 
-            root.right.right.left = new TreeNode();
-            root.right.right.left.val = 15;
+            //root.right.right.left = new TreeNode();
+            //root.right.right.left.val = 15;
 
-            //   bool bal = IsBalanced(root);
+            ////   bool bal = IsBalanced(root);
 
-            //5 Valid BST
-            bool _isValidBST = IsValidBST(root);
+            ////5 Valid BST
+            //bool _isValidBST = IsValidBST(root);
 
-            //6 Sucessor -- TO Execute
-            TreeNode node = new TreeNode();
-            TreeNode n = Sucessor(node);
+            ////6 Sucessor -- TO Execute
+            //TreeNode node = new TreeNode();
+            //TreeNode n = Sucessor(node);
 
             //7 Build Order -- TO Execute
             //8 First Common Ancesstor-- TO Execute
             //9 BST Sequence -- TO Execute
             //Extra 
             //Level Order Traversal 
-            LevelOrderTravesal(root);
+            //LevelOrderTravesal(root);
 
             //Extra 
             //DFS - Pre Order
@@ -54,8 +55,46 @@ namespace CTCI
             //InOrder(root);
 
             //Level order Traversal
-            Console.WriteLine("Leverl order traversal");
-            LevelOrder(root);
+            //Console.WriteLine("Leverl order traversal");
+            //LevelOrder(root);
+
+
+            //Pelindrom
+            TreeNode root = new TreeNode();
+            root = new TreeNode();
+            root.val = 2;
+            root.left = new TreeNode();
+            root.left.val = 3;
+            root.left.left = new TreeNode();
+            root.left.left.val = 3;
+            root.left.right = new TreeNode();
+            root.left.right.val = 1;
+
+            root.right = new TreeNode();
+            root.right.val = 1;
+            root.right.right = new TreeNode();
+            root.right.right.val = 1;
+            PseudoPalindromicPaths(root);
+
+
+            //1443. Minimum Time to Collect All Apples in a Tree
+            int[][] arr = new int[6][];
+            arr[0] = new int[2] {0, 1};
+            arr[1] = new int[2] { 0,2};
+            arr[2] = new int[2] {1,4 };
+            arr[3] = new int[2] { 1,5};
+            arr[4] = new int[2] { 2,3}; 
+            arr[5] = new int[2] { 2,6};
+
+            List<bool> lst = new List<bool>();
+            lst.Add(false);
+            lst.Add(false);
+            lst.Add(true);
+            lst.Add(false);
+            lst.Add(true);
+            lst.Add(true);
+            lst.Add(false);
+            int count = minTime(7,arr, lst);
         }
         //2 Minimal Tree
         //Input [2,5,7,9,11,18,20,25,70]
@@ -294,6 +333,113 @@ namespace CTCI
                 if (node.right != null)
                     q.Enqueue(node.right);
             }
+        }
+
+
+        int count = 0;
+        public int PseudoPalindromicPaths(TreeNode root)
+        {
+            /*
+                find path from root to leaf node
+                    --iterate till left and right node is null
+                    --if hashtable has value and its 1 then add else not add 
+
+
+                DFS Pre traversal
+                keep trake of the counts in hashtable 
+                    if exist then remove else add 
+
+                1. 233 ==> check if permutation is pelindrom increment counter 
+                2. 231 ==> check if permutation is pelindrom increment counter 
+                3. 211 ==> check if permutation is pelindrom increment counter 
+
+                //PermutationPelindrom 
+                1. even 
+                    all the numbner shoud have even counts
+                2. odd
+                    there should be only one letter with one (odd) count
+                    if more than one letter has one (odd) count then its not palindrom   
+            */
+            Hashtable ht = new Hashtable();
+            if (root == null)
+                return 1;
+            if (root.left == null && root.right == null)
+                return 1;
+            DFS(root, ht, false);
+            return count;
+        }
+
+        public void DFS(TreeNode node, Hashtable ht, bool IsLeafNode)
+        {
+            if (ht.Contains(node.val))
+            {
+                ht.Remove(node.val);
+                /*ht[node.val] = (int) ht[node.val] - 1;
+                if((int)ht[node.val]==0)
+                {
+                    ht.Remove(node.val);
+                }*/
+            }
+            else
+            {
+                ht.Add(node.val, 1); //2   
+            }
+
+            //if(node.left == null && node.right == null)
+            if (IsLeafNode)
+            {
+                //check for pelindrom permutation  
+                if (ht.Count == 1)
+                {
+                    foreach (var key in ht.Keys)
+                    {
+                        if ((int)ht[key] == 1)
+                            count++;   //1 
+                    }
+                }
+                else if (ht.Count == 0)
+                {
+                    count++;
+                }
+
+                return;
+            }
+
+          
+            if (node.left != null)
+                DFS(node.left, ht, node.left.left == null && node.left.right == null ? true : false);
+            if (node.right != null)
+                DFS(node.right, ht, node.right.left == null && node.right.right == null ? true : false);
+
+        }
+
+        public int minTime(int n, int[][] edges, List<Boolean> hasApple)
+        {
+            List<int>[] arr = new List<int>[n];
+            foreach(var edge in edges)
+            {
+                int i = edge[0], j = edge[1];
+                if (arr[i] == null) arr[i] = new List<int>();
+                arr[i].Add(j);
+                if (arr[j] == null) arr[j] = new List<int>();
+                arr[j].Add(i);
+            }
+            var visited = new bool[n];
+            return dfs(0, arr, hasApple, visited);
+        }
+
+        private int dfs(int val, List<int>[] arr, List<Boolean> flags, bool[] visited)
+        {
+            visited[val] = true;
+            var sum = 0;
+            foreach(var c in arr[val])
+            {
+                if (visited[c]) continue;
+                var cnt = dfs(c, arr, flags, visited);
+                sum += cnt;
+                if (cnt > 0 || flags[c]) sum += 2;
+            }
+            return sum;
         }
     }
 

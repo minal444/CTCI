@@ -68,9 +68,13 @@ namespace CTCI
 
 
             //Leetcode Sliding Window //1658.Minimum Operations to Reduce X to Zero
-            int ans = MinOperations(new int[] { 1, 1, 4, 2, 3 }, 5);
+            //int ans = MinOperations(new int[] { 1, 1, 4, 2, 3 }, 5);
 
-            int[] ans1  = minOperations("001011");
+            //int[] ans1  = minOperations("001011");
+
+            //Print metrics
+            int[][]  arr;
+            arr = SpiralMatrixIII(1, 4, 0, 0);
         }
         //1
         //Questions:
@@ -698,6 +702,101 @@ namespace CTCI
             }
 
             return answer;
+        }
+
+
+        public int[][] SpiralMatrixIII(int R, int C, int r0, int c0)
+        {
+            int[][] res = new int[R * C][];
+            int idx = 0;
+            int noOfSteps = 1;
+            int dir = 0;
+            int steps = 0;
+            res[idx++] = new int[2] { r0, c0 };
+            //c0 = c0 + 1;
+            //        while(r0 >=0 || r0 < R || c0 >=0 || c0 < C)
+            while (idx < R * C)
+            {
+                steps = 0;
+                if (dir == 0)
+                {
+                    //go till no of steps in direction right //if outside boudry do not do anything 
+                    while (steps < noOfSteps)
+                    {
+                        c0 = c0 + 1;
+                        //if (c0 + 1 < C && c0 + 1 >= 0 && r0 < R && r0 >= 0)
+                        if (c0  < C && c0  >= 0 && r0 < R && r0 >= 0)
+                        {
+                            res[idx++] = new int[2] { r0, c0  };
+                            //c0++;
+                        }
+                        steps++;
+                    }
+                    dir = 1;
+                   //  r0++;
+                }
+                else if (dir == 1)
+                {
+                    //go till no of steps in direction bottom //if outside boudry do not do anything                             
+                    while (steps < noOfSteps)
+                    {
+                        r0 = r0 + 1;
+                        if (c0 < C && c0 >= 0 && r0  < R && r0   >= 0)
+                        //if (c0 < C && c0 >= 0 && r0+1 < R && r0+1 >= 0)
+                        {
+                            res[idx++] = new int[2] { r0 , c0 };
+                             //r0++;
+                        }
+                        //r0++;
+                        steps++;
+                    }
+                    dir = 2;
+                  //  c0--;
+                    noOfSteps = noOfSteps + 1;
+                }
+                else if (dir == 2)
+                {
+                    //go till no of steps in direction left //if outside boudry do not do anything   
+                    while (steps < noOfSteps)
+                    {
+                        c0 = c0 - 1;
+                        if (c0  < C && c0   >= 0 && r0 < R && r0 >= 0)
+                            //if (c0-1 < C && c0-1 >= 0 && r0 < R && r0 >= 0)
+                        {
+                            res[idx++] = new int[2] { r0, c0 };
+                            //c0--;
+                        }
+                        //c0--;
+                        steps++;
+                    }
+                    dir = 3;
+                  // r0--;
+                }
+                else if (dir == 3)
+                {
+                    //go till no of steps in direction left //if outside boudry do not do anything   
+                    while (steps < noOfSteps)
+                    {
+                        r0 = r0-1;
+                        if (c0 < C && c0 >= 0 && r0  < R && r0  >= 0)
+                            //if (c0 < C && c0 >= 0 && r0-1 < R && r0-1 >= 0)
+                        {
+                            res[idx++] = new int[2] { r0 , c0 };
+                            //r0--;
+                        }
+                       // r0--;
+                        steps++;
+                    }
+                    dir = 0;
+                   //  c0++;
+                    noOfSteps = noOfSteps + 1;
+                }
+
+            }
+
+            
+
+            return res;
         }
     }
 }
