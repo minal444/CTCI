@@ -73,8 +73,13 @@ namespace CTCI
             //int[] ans1  = minOperations("001011");
 
             //Print metrics
-            int[][]  arr;
-            arr = SpiralMatrixIII(1, 4, 0, 0);
+            //int[][]  arr;
+            //arr = SpiralMatrixIII(1, 4, 0, 0);
+
+            //1712.Ways to Split Array Into Three Subarrays
+            int cnt = WaysToSplit(new int[6] { 1, 2, 2, 2, 5, 0 });
+
+            cnt = FurthestBuilding(new int[9] { 4, 12, 2, 7, 3, 18, 20, 3, 19}, 10,2);
         }
         //1
         //Questions:
@@ -797,6 +802,80 @@ namespace CTCI
             
 
             return res;
+        }
+
+
+        public int WaysToSplit(int[] nums)
+        {
+            /*
+            nums = [1,2,2,2,5,0]
+            nums = [1,3,5,7,12,12]
+            */
+            int MOD = 1000000007;
+            var len = nums.Length;
+            for (int i = 1; i < len; i++)
+            {
+                nums[i] += nums[i - 1];
+            }
+            int l = 0, r = 0, cnt = 0;
+            for (int i = 0; i < len; i++)
+            {
+                l = Math.Max(i + 1, l); //1 
+                                        // 1< 6 && 3 - 1 < l 
+                while (l < len && nums[l] - nums[i] < nums[i]) l++;
+
+                r = Math.Max(l, r); // 1 
+                                    //1 < 6 && 12 - 3 >= 3 - 1 
+                while (r < len - 1 && nums[len - 1] - nums[r] >= nums[r] - nums[i]) r++;
+                cnt += r - l;
+                cnt %= MOD;
+            }
+            return cnt;
+        }
+
+        public int FurthestBuilding(int[] heights, int bricks, int ladders)
+        {
+            /*
+            [4,12,2,7,3,18,20,3,19]
+             4 12 2 7 3,18,20,3,
+            bricks = 10 , 2 
+            ladder = 2 , 1, 0 
+
+
+            while idx < len && (bricks > 0 || ladder > 0)
+            {
+
+            }
+            */
+            int idx = 0;
+            int len = heights.Length;
+            while (idx < len && (bricks > 0 || ladders > 0))
+            {
+                if (heights[idx] < heights[idx + 1])
+                {
+                    //use either ladder or bricks
+                    if (heights[idx + 1] - heights[idx] <= bricks)
+                    {
+                        bricks = bricks - (heights[idx + 1] - heights[idx]);
+                        idx++;
+                    }
+                    else if (ladders > 0)
+                    {
+                        ladders--;
+                        idx++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    idx++;
+                }
+            }
+
+            return idx;
         }
     }
 }
