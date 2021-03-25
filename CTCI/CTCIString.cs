@@ -80,6 +80,8 @@ namespace CTCI
             int cnt = WaysToSplit(new int[6] { 1, 2, 2, 2, 5, 0 });
 
             cnt = FurthestBuilding(new int[9] { 4, 12, 2, 7, 3, 18, 20, 3, 19}, 10,2);
+
+            string str = multiply("628","205");
         }
         //1
         //Questions:
@@ -230,7 +232,25 @@ namespace CTCI
          * If that is the case then it can have palindrome permutaion
          * 
          */
+        public String multiply(String num1, String num2)
+        {
+            int[] num = new int[num1.Length + num2.Length];
+            int len1 = num1.Length, len2 = num2.Length;
+            for (int i = len1 - 1; i >= 0; i--)
+            {
+                for (int j = len2 - 1; j >= 0; j--)
+                {
+                    int temp = (num1[i] - '0') * (num2[j] - '0');
+                    num[i + j] += (temp + num[i + j + 1]) / 10;
+                    num[i + j + 1] = (num[i + j + 1] + temp) % 10;
+                }
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int i =0;i<num.Length;i++) 
+                if (sb.Length > 0 || num[i] > 0) sb.Append(num[i]);
 
+            return (sb.Length == 0) ? "0" : sb.ToString();
+        }
         public bool IsPalindromePermutaion(string str)
         {
             Hashtable ht = new Hashtable();
