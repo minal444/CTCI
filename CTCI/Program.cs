@@ -17,9 +17,9 @@ namespace CTCI
     {
         public static void Main(string[] args)
         {
-            //Console.WriteLine("Hello World!");
-            CTCIString cTCI = new CTCIString();
-            cTCI.AllStrings();
+            ////Console.WriteLine("Hello World!");
+            //CTCIString cTCI = new CTCIString();
+            //cTCI.AllStrings();
 
             //CTCITrees cTCITree = new CTCITrees();
             //cTCITree.AllTree();
@@ -37,8 +37,8 @@ namespace CTCI
             //ClientTemplete c = new ClientTemplete();
             //c.Process();
 
-            //CTCIGraphs g = new CTCIGraphs();
-            //g.AllGraphs();
+            CTCIGraphs g = new CTCIGraphs();
+            g.AllGraphs();
 
             //CTCISortSearch g = new CTCISortSearch();
             //g.AllSortSearch();

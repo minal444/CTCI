@@ -111,6 +111,9 @@ namespace CTCI
                 }
                 char_set[val] = true;
             }
+
+            
+
             return true;
 
         }

@@ -16,13 +16,17 @@ namespace CTCI
             //arr[1] = new int[4] {1,1,0,1};
             //arr[2] = new int[4] {0,0,1,0};
 
-            int[][] arr = new int[][]
+            int[][] arr = new int[3][]
             {
-                new int[] {1,0,0,1},
-                new int[] {1,1,1,1},
-                new int[] { 0, 0, 1, 0 }
+                new int[4] {1,0,0,1},
+                new int[4] {1,1,0,1},
+                new int[4] {0,0,1,0}
             };
+            int ans = MaxIslandPerimeter(arr);
+
             int count = FindNoofIsland(arr);
+
+          
         }
 
         //public IsPath()
@@ -59,6 +63,93 @@ namespace CTCI
             FindNoofIsland(arr, row,col+1);
             FindNoofIsland(arr, row-1,col);
             FindNoofIsland(arr, row+1, col);
+        }
+
+        public int MaxIslandPerimeter(int[][] grid)
+        {
+            int perimiter = 0;
+            int n = grid.Length;
+            int m = grid[0].Length;
+            int maxPerimeter = Int32.MinValue;
+           
+            for (int i = 0; i < grid.Length; i++)
+            {
+                for (int j = 0; j < grid[0].Length; j++)
+                {
+                    if (grid[i][j] == 1)
+                    {
+                        //if (!IsInBoundry(i, j - 1, n, m, grid))
+                        //    perimiter++;
+
+                        //if (!IsInBoundry(i, j + 1, n, m, grid))
+                        //    perimiter++;
+
+                        //if (!IsInBoundry(i - 1, j, n, m, grid))
+                        //    perimiter++;
+
+                        //if (!IsInBoundry(i + 1, j, n, m, grid))
+                        //    perimiter++;
+                        perimiter = GetCurrentPerimeter(i, j, n, m, grid);
+                        maxPerimeter = Math.Max(maxPerimeter, perimiter);
+                    }
+                }
+            }
+
+            return maxPerimeter;
+        }
+        private int GetCurrentPerimeter(int r, int c, int rows, int cols, int[][] grid)
+        {
+            int p = 0;
+            if (r < 0 || r >= rows || c < 0 || c >= cols || grid[r][c] != 1)
+                return 0;
+
+            //if (!IsInBoundry(r, c, rows, cols, grid))
+            //    return 1;
+
+            grid[r][c] = -1;
+
+            if (!IsInBoundry(r, c - 1, rows, cols, grid))
+                p++;
+
+            if (!IsInBoundry(r, c + 1, rows, cols, grid))
+                p++;
+
+            if (!IsInBoundry(r - 1, c, rows, cols, grid))
+                p++;
+
+            if (!IsInBoundry(r + 1, c, rows, cols, grid))
+                p++;
+
+            p += GetCurrentPerimeter(r, c+1, rows, cols, grid);
+            p += GetCurrentPerimeter(r, c-1, rows, cols, grid);
+            p += GetCurrentPerimeter(r+1, c, rows, cols, grid);
+            p += GetCurrentPerimeter(r-1, c, rows, cols, grid);
+            grid[r][c] = 1;
+
+            return p;
+        }
+        //private bool IsInBoundry(int r, int c, int rows, int cols, int[][] grid)
+        //{
+        //    if (r < 0 || r >= rows || c < 0 || c >= cols)
+        //        return false;
+
+        //    if (grid[r][c] == 0)
+        //        return false;
+
+        //    if (grid[r][c] == -1) return true;
+
+        //    return true;
+        //}
+
+        private bool IsInBoundry(int r, int c, int rows, int cols, int[][] grid)
+        {
+            if (r < 0 || r >= rows || c < 0 || c >= cols)
+                return false;
+
+            if (grid[r][c] == 0)
+                return false;
+
+            return true;
         }
 
 
