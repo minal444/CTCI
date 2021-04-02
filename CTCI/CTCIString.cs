@@ -82,6 +82,8 @@ namespace CTCI
             cnt = FurthestBuilding(new int[9] { 4, 12, 2, 7, 3, 18, 20, 3, 19}, 10,2);
 
             string str = multiply("628","205");
+
+            int a = LongestOnes(new int[8] { 0, 1, 1, 1, 0, 1, 0, 1 },1);
         }
         //1
         //Questions:
@@ -97,6 +99,39 @@ namespace CTCI
 
         3. Bit manipulations
         */
+
+        public int LongestOnes(int[] A, int K)
+        {
+            /*
+            0 1 1 1 0 1 0 1
+
+            left:
+            0 1 2 3
+            right :
+            0 1 2 3 4 5 6 7
+
+            K
+            -1
+            */
+            int left = 0, right;
+            for (right = 0; right < A.Length; right++)
+            {
+                // If we included a zero in the window we reduce the value of K.
+                // Since K is the maximum zeros allowed in a window.
+                if (A[right] == 0) K--;
+                // A negative K denotes we have consumed all allowed flips and window has
+                // more than allowed zeros, thus increment left pointer by 1 to keep the window size same.
+                if (K < 0)
+                {
+                    // If the left element to be thrown out is zero we increase K.
+                    if (A[left] == 0) K++;
+                    left++;
+                }
+            }
+            return right - left;
+
+
+        }
         public bool IsUnique(string str)
         {
            
