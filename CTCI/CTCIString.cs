@@ -84,6 +84,9 @@ namespace CTCI
             string str = multiply("628","205");
 
             int a = LongestOnes(new int[8] { 0, 1, 1, 1, 0, 1, 0, 1 },1);
+
+            //decod ways 
+            a = NumDecodings("11106");
         }
         //1
         //Questions:
@@ -131,6 +134,78 @@ namespace CTCI
             return right - left;
 
 
+        }
+
+        Dictionary<int, int> memo = new Dictionary<int,int>();
+
+        public int NumDecodings(string s)
+        {
+            int n = s.Length;
+            int[] dp = new int[n + 1];
+
+            dp[0] = 1;
+            dp[1] = s[0] == '0' ? 0 : 1;
+
+            for (int i = 2; i < dp.Length; i++)
+            {
+                if (s[i - 1] != '0')
+                {
+                    dp[i] = dp[i - 1];
+                }
+
+                int twoDigit = Convert.ToInt32(s.Substring(i - 2, 2));
+                if (twoDigit >= 10 && twoDigit <= 26)
+                {
+                    dp[i] += dp[i - 2];
+                }
+            }
+            return dp[s.Length];
+
+
+        }
+
+        public int numDecodings(String s)
+        {
+            return recursiveWithMemo(0, s);
+        }
+
+        private int recursiveWithMemo(int index, String str)
+        {
+            // Have we already seen this substring?
+            if (memo.ContainsKey(index))
+            {
+                return memo[index];
+            }
+
+            // If you reach the end of the string
+            // Return 1 for success.
+            if (index == str.Length)
+            {
+                return 1;
+            }
+
+            // If the string starts with a zero, it can't be decoded
+            if (str[index] == '0')
+            {
+                return 0;
+            }
+
+            if (index == str.Length - 1)
+            {
+                return 1;
+            }
+
+
+            int ans = recursiveWithMemo(index + 1, str);
+            if (Int32.Parse(str.Substring(index, 2)) <= 26)
+            {
+                ans += recursiveWithMemo(index + 2, str);
+            }
+
+            // Save for memoization
+            memo.Add(index, ans);
+
+            return ans;
         }
         public bool IsUnique(string str)
         {
