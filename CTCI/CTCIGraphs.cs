@@ -153,5 +153,63 @@ namespace CTCI
         }
 
 
+        public void FindWords(char[][] board, string[] words)
+        {
+            IList<string> res = new List<string>();
+
+            for (int w = 0; w < words.Length; w++)
+            {
+                string ww = words[w];
+                Console.WriteLine(ww);
+                for (int i = 0; i < board.Length; i++)
+                {
+                    for (int j = 0; j < board[0].Length; j++)
+                    {
+                        if (ww[0] == board[i][j])
+                        {
+                            Console.WriteLine(i); Console.WriteLine(j);
+
+                            if (dfs(board, ww, 0, i, j))
+                            {
+                                Console.WriteLine(ww);
+                                res.Add(ww);
+                            }
+                        }
+                    }
+                }
+            }
+
+           // return res;
+        }
+
+        private bool dfs(char[][] board, string word, int index, int r, int c)
+        {
+            if (word.Length <= index)
+                return true;
+
+            if (r < 0 || r > board.Length - 1 || c < 0 || c > board[0].Length - 1 || board[r][c] != word[index])
+                return false;
+
+            char ch = board[r][c];
+            board[r][c] = '#';
+
+            if (dfs(board, word, index + 1, r + 1, c))
+                return true;
+
+            if (dfs(board, word, index + 1, r - 1, c))
+                return true;
+
+            if (dfs(board, word, index + 1, r, c + 1))
+                return true;
+
+            if (dfs(board, word, index + 1, r, c - 1))
+                return true;
+
+            board[r][c] = ch;
+
+            return false;
+        }
+
+
     }
 }

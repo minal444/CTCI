@@ -82,6 +82,8 @@ namespace CTCI
             // 967.Numbers With Same Consecutive Differences
             int[] ans = NumsSameConsecDiff(3, 4);
 
+
+            LetterCombinations("23");
         }
         public int[] ConstructDistancedSequence(int n)
         {
@@ -410,6 +412,57 @@ namespace CTCI
                     getNums(currentResult * 10 + digits[i], digits, N - 1, k, result);
                 }
             }
+        }
+
+        private Dictionary<int, string> map = new Dictionary<int, string>();
+        private List<string> res = new List<string>();
+        public IList<string> LetterCombinations(string digits)
+        {
+            /*
+            string[] map = 0   1  2    3     4    5    6    7    8      9 
+                                  abc  def   ghi  jkl  mno  pqrs tuv    wxyz
+
+            23
+
+            ad
+            ae
+            af
+
+
+            */
+
+            map.Add(2, "abc");
+            map.Add(3, "def");
+            map.Add(4, "ghi");
+            map.Add(5, "jkl");
+            map.Add(6, "mno");
+            map.Add(7, "pqrs");
+            map.Add(8, "tuv");
+            map.Add(9, "wxyz");
+            StringBuilder sb = new StringBuilder();
+            helper(digits, 0, sb);
+            return res;
+        }
+
+        private void helper(string digits, int idx, StringBuilder sb)
+        {
+            if (sb.Length == digits.Length)
+            {
+
+                res.Add(sb.ToString());
+                return;
+            }
+
+            int item = (int)Char.GetNumericValue(digits[idx]);
+
+            string str = map[item];
+            for (int i = 0; i < str.Length; i++)
+            {
+                sb.Append(str[i]);
+                helper(digits, idx + 1, sb);
+                sb.Remove(sb.Length - 1, 1);
+            }
+
         }
 
     }

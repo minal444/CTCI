@@ -21,14 +21,14 @@ namespace CTCI
             //CTCIString cTCI = new CTCIString();
             //cTCI.AllStrings();
 
-            DivideAndConquer dq = new DivideAndConquer();
-            dq.AllDivideAndConquer();
+            //DivideAndConquer dq = new DivideAndConquer();
+            //dq.AllDivideAndConquer();
 
             //CTCITrees cTCITree = new CTCITrees();
             //cTCITree.AllTree();
 
-            // CTCIRecursionDP R = new CTCIRecursionDP();
-            // R.AllRecursionDP();
+            CTCIRecursionDP R = new CTCIRecursionDP();
+            R.AllRecursionDP();
 
             //CTCIModerate M = new CTCIModerate();
             //M.AllModerate();
