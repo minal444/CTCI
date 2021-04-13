@@ -11,7 +11,7 @@ namespace CTCI
         public void AllTree()
         {
             //2 Minimal Tree
-            createMinimumBST(new int[] { 2, 5, 7, 9, 11, 18, 20, 25, 70 });
+            //createMinimumBST(new int[] { 2, 5, 7, 9, 11, 18, 20, 25, 70 });
 
             //3 List of Depth
             //NodesByDepth()
@@ -59,42 +59,60 @@ namespace CTCI
             //LevelOrder(root);
 
 
-            //Pelindrom
-            TreeNode root = new TreeNode();
-            root = new TreeNode();
-            root.val = 2;
-            root.left = new TreeNode();
-            root.left.val = 3;
-            root.left.left = new TreeNode();
-            root.left.left.val = 3;
-            root.left.right = new TreeNode();
-            root.left.right.val = 1;
 
-            root.right = new TreeNode();
-            root.right.val = 1;
-            root.right.right = new TreeNode();
-            root.right.right.val = 1;
-            PseudoPalindromicPaths(root);
+            //Pelindrom
+            //TreeNode root = new TreeNode();
+            //root = new TreeNode();
+            //root.val = 2;
+            //root.left = new TreeNode();
+            //root.left.val = 3;
+            //root.left.left = new TreeNode();
+            //root.left.left.val = 3;
+            //root.left.right = new TreeNode();
+            //root.left.right.val = 1;
+
+            //root.right = new TreeNode();
+            //root.right.val = 1;
+            //root.right.right = new TreeNode();
+            //root.right.right.val = 1;
+            //PseudoPalindromicPaths(root);
 
 
             //1443. Minimum Time to Collect All Apples in a Tree
-            int[][] arr = new int[6][];
-            arr[0] = new int[2] {0, 1};
-            arr[1] = new int[2] { 0,2};
-            arr[2] = new int[2] {1,4 };
-            arr[3] = new int[2] { 1,5};
-            arr[4] = new int[2] { 2,3}; 
-            arr[5] = new int[2] { 2,6};
+            //int[][] arr = new int[6][];
+            //arr[0] = new int[2] {0, 1};
+            //arr[1] = new int[2] { 0,2};
+            //arr[2] = new int[2] {1,4 };
+            //arr[3] = new int[2] { 1,5};
+            //arr[4] = new int[2] { 2,3}; 
+            //arr[5] = new int[2] { 2,6};
 
-            List<bool> lst = new List<bool>();
-            lst.Add(false);
-            lst.Add(false);
-            lst.Add(true);
-            lst.Add(false);
-            lst.Add(true);
-            lst.Add(true);
-            lst.Add(false);
-            int count = minTime(7,arr, lst);
+            //List<bool> lst = new List<bool>();
+            //lst.Add(false);
+            //lst.Add(false);
+            //lst.Add(true);
+            //lst.Add(false);
+            //lst.Add(true);
+            //lst.Add(true);
+            //lst.Add(false);
+            //int count = minTime(7,arr, lst);
+            TreeNode root;// = new TreeNode();
+            root = new TreeNode();
+            root.val = 5;
+            root.left = new TreeNode();
+            root.left.val = 2;
+            root.left.left = new TreeNode();
+            root.left.left.val = 6;
+            root.left.left.left= new TreeNode();
+            root.left.left.left.val = 46;
+            root.left.left.right= new TreeNode();
+            root.left.left.right.val = 23;
+
+            root.right = new TreeNode();
+            root.right.val = 1;
+            root.right.left = new TreeNode();
+            root.right.left.val = 11;
+            flatten(root);
         }
         //2 Minimal Tree
         //Input [2,5,7,9,11,18,20,25,70]
@@ -440,6 +458,39 @@ namespace CTCI
                 if (cnt > 0 || flags[c]) sum += 2;
             }
             return sum;
+        }
+
+        public void flatten(TreeNode root)
+        {
+            /*
+            Pre-Order traversal and then display as right node only 
+
+            root : 1 , left ---> till null , right ---> right -- DFS
+                   1 , 2 , 3 4
+            */
+
+            FlatternTree(root);//5
+        }
+
+        private TreeNode FlatternTree(TreeNode node)
+        {
+            if (node == null) return null; //5 //2 6 44 --- 23 
+
+            if (node.left == null && node.right == null)
+                return node;
+
+            TreeNode leftTail = FlatternTree(node.left); //2         //6    -----> 44
+            TreeNode rightTail = FlatternTree(node.right); //        -------23
+
+
+            if (leftTail != null)
+            {
+                leftTail.right = node.right; //44 --> 23
+                node.right = node.left; // 6 --> 44 --> 23 
+                node.left = null;
+            }
+
+            return rightTail == null ? leftTail : rightTail;
         }
     }
 
