@@ -16,17 +16,91 @@ namespace CTCI
             //arr[1] = new int[4] {1,1,0,1};
             //arr[2] = new int[4] {0,0,1,0};
 
-            int[][] arr = new int[3][]
+            //int[][] arr = new int[3][]
+            //{
+            //    new int[4] {1,0,0,1},
+            //    new int[4] {1,1,0,1},
+            //    new int[4] {0,0,1,0}
+            //};
+            //int ans = MaxIslandPerimeter(arr);
+
+            //int count = FindNoofIsland(arr);
+
+            string str = alienOrder(new string[5] { "wrt", "wrf", "er", "ett", "rftt" });
+
+
+        }
+
+        public String alienOrder(String[] words)
+        {
+
+            // Step 0: Create data structures and find all unique letters.
+            Dictionary<Char, List<Char>> adjList = new Dictionary<Char, List<Char>>();
+            Dictionary<Char, int> counts = new Dictionary<Char, int>();
+            foreach(String word in words)
             {
-                new int[4] {1,0,0,1},
-                new int[4] {1,1,0,1},
-                new int[4] {0,0,1,0}
-            };
-            int ans = MaxIslandPerimeter(arr);
+                foreach(char c in word.ToCharArray())
+                {
+                    if (!counts.ContainsKey(c))
+                        counts.Add(c, 0);
+                    if (!adjList.ContainsKey(c))
+                        adjList.Add(c, new List<char>());
+                }
+            }
 
-            int count = FindNoofIsland(arr);
+            // Step 1: Find all edges.
+            for (int i = 0; i < words.Length - 1; i++)
+            {
+                String word1 = words[i];
+                String word2 = words[i + 1];
+                // Check that word2 is not a prefix of word1.
+                if (word1.Length > word2.Length && word1.StartsWith(word2))
+                {
+                    return "";
+                }
+                // Find the first non match and insert the corresponding relation.
+                for (int j = 0; j < Math.Min(word1.Length, word2.Length); j++)
+                {
+                    if (word1[j] != word2[j])
+                    {
+                        adjList[word1[j]].Add(word2[j]);
+                        //if (!counts.ContainsKey(word2[j]))
+                        counts[word2[j]] = counts[word2[j]] + 1;
+                        break;
+                    }
+                }
+            }
 
-          
+            // Step 2: Breadth-first search.
+            StringBuilder sb = new StringBuilder();
+            Queue<char> queue = new Queue<char>();
+            foreach(char c in counts.Keys)
+            {
+                if (counts[c].Equals(0))
+                {
+                    queue.Enqueue(c);
+                }
+            }
+            while (queue.Count !=0)
+            {
+                char c = queue.Dequeue();
+                sb.Append(c);
+                foreach(char next in adjList[c])
+                {
+                   // if (!counts.ContainsKey(next))
+                    counts[next] = counts[next] - 1;
+                    if (counts[next].Equals(0))
+                    {
+                        queue.Enqueue(next);
+                    }
+                }
+            }
+
+            if (sb.Length < counts.Count)
+            {
+                return "";
+            }
+            return sb.ToString();
         }
 
         //public IsPath()
