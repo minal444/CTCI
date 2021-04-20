@@ -84,6 +84,9 @@ namespace CTCI
 
 
             LetterCombinations("23");
+
+
+            IList<IList<int>> set = PermuteNumArr(new int[3] { 1, 2, 3});
         }
         public int[] ConstructDistancedSequence(int n)
         {
@@ -264,6 +267,42 @@ namespace CTCI
 
             return permutations;
 
+        }
+
+        public IList<IList<int>> PermuteNumArr(int[] nums)
+        {
+            /*
+            1,2,3
+
+            21, 12
+            321,231, 231, 312,132,123
+            */
+            IList<IList<int>> list = new List<IList<int>>();
+            helper(-1, nums, new List<int>(), list);
+            return list;
+
+        }
+
+
+        private void helper(int idx, int[] nums, List<int> curr, IList<IList<int>> ans)
+        {
+
+            if (curr.Count == nums.Length)
+            {
+                ans.Add(new List<int>(curr));
+                return;
+            }
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (i != idx && !curr.Contains(nums[i]))
+                {
+                    curr.Add(nums[i]);
+                    helper(i, nums, curr, ans);
+                    curr.RemoveAt(curr.Count - 1);
+                }
+            }
+            
         }
 
         private string InsertAtChar(string word, char c, int index)
