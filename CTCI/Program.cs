@@ -21,6 +21,9 @@ namespace CTCI
             //CTCIString cTCI = new CTCIString();
             //cTCI.AllStrings();
 
+            //BackTracking BT = new BackTracking();
+            //BT.AllBackTracking();
+
             //DivideAndConquer dq = new DivideAndConquer();
             //dq.AllDivideAndConquer();
 

@@ -79,15 +79,46 @@ namespace CTCI
             //int maxVal = GetMaxValue(v, w, capacity, v.Length-1, tmp);
 
 
-            // 967.Numbers With Same Consecutive Differences
-            int[] ans = NumsSameConsecDiff(3, 4);
+            //// 967.Numbers With Same Consecutive Differences
+            //int[] ans = NumsSameConsecDiff(3, 4);
 
 
-            LetterCombinations("23");
+            //LetterCombinations("23");
 
 
-            IList<IList<int>> set = PermuteNumArr(new int[3] { 1, 2, 3});
+        //    IList<IList<int>> set = PermuteNumArr(new int[3] { 1, 2, 3 });
+
+
+            //Generate Paranthesis 
+            List<string> res = new List<string>();
+            res = GenerateParanthesis(res, 3);
         }
+
+        private List<string> GenerateParanthesis(List<string> res,int n)
+        {
+            char[] str = new char[n * 2];
+            GenerateParanthesisHelper(res, n, n, 0, str);
+            return res;
+        }
+
+        private void GenerateParanthesisHelper(List<string> res, int leftRem, int rightRem, int idx, char[] str)
+        {
+            if (leftRem < 0 || leftRem > rightRem) return;
+            if(leftRem ==0 && rightRem ==0)
+            {
+                res.Add(String.Concat(str));
+            }
+            else
+            {
+                str[idx] = '(';
+                GenerateParanthesisHelper(res, leftRem - 1, rightRem, idx+1, str);
+
+                str[idx] = ')';
+                GenerateParanthesisHelper(res, leftRem , rightRem-1, idx + 1, str);
+            }
+            
+        }
+
         public int[] ConstructDistancedSequence(int n)
         {
             int[] result = new int[2 * n - 1];
@@ -188,9 +219,9 @@ namespace CTCI
             return path;
         }
 
-        private bool FindPath(bool[][] arr, int r , int c, HashSet<Point> failedPath, List<Point> path)
+        private bool FindPath(bool[][] arr, int r, int c, HashSet<Point> failedPath, List<Point> path)
         {
-            if(r >= arr.Length || c >= arr[0].Length || !arr[r][c])
+            if (r >= arr.Length || c >= arr[0].Length || !arr[r][c])
             {
                 return false;
             }
@@ -198,11 +229,11 @@ namespace CTCI
             Point p = new Point(r, c);
 
             if (failedPath.Contains(p))
-                return false; 
+                return false;
 
-            bool isDestination = (r == arr.Length-1 && c == arr[0].Length-1);
+            bool isDestination = (r == arr.Length - 1 && c == arr[0].Length - 1);
 
-            if(isDestination || FindPath(arr, r+1, c, failedPath, path) || FindPath(arr, r, c+1, failedPath,  path))
+            if (isDestination || FindPath(arr, r + 1, c, failedPath, path) || FindPath(arr, r, c + 1, failedPath, path))
             {
                 path.Add(p);
                 return true;
@@ -245,7 +276,7 @@ namespace CTCI
             if (str == null) return null;
 
             ArrayList permutations = new ArrayList();
-            if (str.Length ==0)
+            if (str.Length == 0)
             {
                 permutations.Add("");
                 return permutations;
@@ -257,7 +288,7 @@ namespace CTCI
 
             foreach (string word in words)
             {
-                for (int j=0; j<= word.Length; j++)
+                for (int j = 0; j <= word.Length; j++)
                 {
                     string s = InsertAtChar(word, first, j);
                     permutations.Add(s);
@@ -302,7 +333,7 @@ namespace CTCI
                     curr.RemoveAt(curr.Count - 1);
                 }
             }
-            
+
         }
 
         private string InsertAtChar(string word, char c, int index)
@@ -314,13 +345,13 @@ namespace CTCI
 
         private void GenerateBinaryString(char[] str, int idx)
         {
-            if(str.Length ==idx)
+            if (str.Length == idx)
             {
                 Console.WriteLine(str);
                 return;
             }
 
-            if(str[idx]=='?')
+            if (str[idx] == '?')
             {
                 str[idx] = '0';
                 GenerateBinaryString(str, idx + 1);
@@ -333,31 +364,31 @@ namespace CTCI
             else
             {
                 GenerateBinaryString(str, idx + 1);
-            }    
+            }
 
         }
 
-        
-        private int CountofString(int n, int bCount,int cCount)
-        {
-            int[,,] dp = new int[n + 1, bCount+1, cCount + 1];
 
-            for (int i = 0; i < n + 1;i++)
+        private int CountofString(int n, int bCount, int cCount)
+        {
+            int[,,] dp = new int[n + 1, bCount + 1, cCount + 1];
+
+            for (int i = 0; i < n + 1; i++)
             {
-                for (int j=0; j<2; j++)
+                for (int j = 0; j < 2; j++)
                 {
-                    for (int k=0; k<3; k++)
+                    for (int k = 0; k < 3; k++)
                     {
                         dp[i, j, k] = -1;
                     }
                 }
             }
-            return CountofStringUtil(dp,n,bCount ,cCount);
+            return CountofStringUtil(dp, n, bCount, cCount);
         }
 
-        private int CountofStringUtil(int[,,]  dp, int n, int bCount, int cCount)
+        private int CountofStringUtil(int[,,] dp, int n, int bCount, int cCount)
         {
-           
+
             if (bCount < 0 || cCount < 0) return 0;
             if (n == 0) return 1;
             if (bCount == 0 && cCount == 0) return 1;
@@ -365,9 +396,9 @@ namespace CTCI
             if (dp[n, bCount, cCount] != -1)
                 return dp[n, bCount, cCount];
 
-            int res = CountofStringUtil(dp,n - 1,bCount,cCount);
-            res += CountofStringUtil(dp,n - 1, bCount-1, cCount);
-            res += CountofStringUtil(dp, n- 1, bCount, cCount-1);
+            int res = CountofStringUtil(dp, n - 1, bCount, cCount);
+            res += CountofStringUtil(dp, n - 1, bCount - 1, cCount);
+            res += CountofStringUtil(dp, n - 1, bCount, cCount - 1);
             dp[n, bCount, cCount] = res;
             return res;
         }
@@ -375,7 +406,7 @@ namespace CTCI
         private List<List<char>> FindPowerSetString(string str, int idx)
         {
             List<List<char>> allset;
-            if(str.Length == idx)
+            if (str.Length == idx)
             {
                 allset = new List<List<char>>();
                 allset.Add(new List<char>());
@@ -384,7 +415,7 @@ namespace CTCI
             {
                 allset = FindPowerSetString(str, idx + 1);
                 char item = str[idx];
-                List<List<char>> moreset= new List<List<char>>();
+                List<List<char>> moreset = new List<List<char>>();
                 foreach (List<char> lst in allset)
                 {
                     List<char> newset = new List<char>();
@@ -398,14 +429,14 @@ namespace CTCI
             return allset;
         }
 
-        private int GetMaxValue(int[] v , int[] w, int capacity, int n ,int[][] tmp)
+        private int GetMaxValue(int[] v, int[] w, int capacity, int n, int[][] tmp)
         {
             int result;
             if (tmp[n][capacity] != 0) return tmp[n][capacity];
             if (n == 0 || capacity == 0)
                 return 0;
             else if (w[n] > capacity)
-                result = GetMaxValue(v,w,capacity, n-1, tmp);
+                result = GetMaxValue(v, w, capacity, n - 1, tmp);
             else
             {
                 result = Math.Max(v[n] + GetMaxValue(v, w, capacity - w[n], n - 1, tmp), GetMaxValue(v, w, capacity, n - 1, tmp));
@@ -416,7 +447,7 @@ namespace CTCI
 
         public int[] NumsSameConsecDiff(int n, int k)
         {
-           
+
             int[] digits = new int[10] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             if (n == 1)
             {
