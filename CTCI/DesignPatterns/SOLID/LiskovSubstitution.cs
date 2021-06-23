@@ -4,6 +4,7 @@ using System.Text;
 
 namespace CTCI.DesignPatterns.SOLID
 {
+    //good example: https://code-maze.com/liskov-substitution-principle/
     class LiskovSubstitution
     {
         public void SubmitApp()
